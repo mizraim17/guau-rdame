@@ -9,7 +9,7 @@ class Home extends Component{
       <div>
         <Navbarz/>
         <Login/>
-        <Profile/>
+
       </div>
     );
   }
