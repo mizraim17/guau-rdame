@@ -6,10 +6,10 @@ const Navbarz = () => {
   const logo2 = "Guau-rdame";
   return(
    <div>
-     <Navbar brand={logo2 } left className="green accent-2" >
-       <NavItem href='get-started.html' center="true">  Guau-rdame</NavItem>
-       <NavItem href='get-started.html'>  Inicio</NavItem>
-       <NavItem href='components.html'>Servicios</NavItem>
+     <Navbar brand={logo2 } left className="cyan accent-4" >
+       <NavItem href='/'>  Inicio</NavItem>
+       <NavItem href='/calendar'>Servicios</NavItem>
+       <NavItem href='/profile'> FAQ   </NavItem>
      </Navbar>
    </div>
   );

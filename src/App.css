@@ -2,7 +2,7 @@
   text-align: center;
 }
 body{
-  background-color: #c6c6c6;
+  background-color: #eeeeee;
 }
 
 .App-logo {
@@ -33,4 +33,9 @@ body{
   to {
     transform: rotate(360deg);
   }
+}
+
+
+.gray-text{
+  color: red;
 }

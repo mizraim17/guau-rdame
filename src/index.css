@@ -12,3 +12,16 @@ code {
   font-family: source-code-pro, Menlo, Monaco, Consolas, "Courier New",
     monospace;
 }
+
+.margin-top{
+  margin-top: 3%;
+}
+
+.txt-bold{
+  font-size: 1.2rem;
+  font-weight: bold;
+}
+
+.txt-normal{
+  font-weight: normal;
+}
