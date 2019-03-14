@@ -18,7 +18,7 @@ class Login  extends  Component {
   render() {
     return(
   <Row className="margin-top">
-    <Col s={12} m={6} offset="m2">
+    <Col s={12} m={12} >
     <div className="section col s12 m6  offset-m4">
       <Tabs className='tab-demo z-depth-1'>
         <Tab title="Veterinario" > <Card  waves='light'>

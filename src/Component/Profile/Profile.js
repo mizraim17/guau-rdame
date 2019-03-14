@@ -1,9 +1,37 @@
 import React, {Component} from 'react'
 import {Link} from "react-router-dom";
 import {Tab, Tabs, Card, CardTitle, Col, Row} from 'react-materialize';
+import GenerateQR from "../QRcode/GenerateQR";
+import QRCode from "qrcode";
 
 class Profile extends Component{
+  state={
+    infoUser:{
+      name:"Kaneki",
+      lastName:"Martínez",
+      age:"7",
+      breed:"akita",
+      color:"cafe",
+      birth:"02/09/1983"
+    },
+    imageUrl:'',
+    dataQR:''
+  }
+  componentWillMount() {
+    let {imageUrl,infoUser,dataQR} =this.state;
+    dataQR=JSON.stringify(infoUser)
+    console.log(dataQR)
+    QRCode.toDataURL(`${dataQR}`)
+      .then(url => {
+        console.log(imageUrl)
+        this.setState({imageUrl:url})
+      })
+      .catch(err => {
+        console.error(err)
+      })
+  }
   render() {
+    let {infoUser,imageUrl} = this.state
     return(
       <Row>
         <Col s={12} m={10} offset="m1">
@@ -16,19 +44,20 @@ class Profile extends Component{
             </CardTitle>}
             actions={[<Link to='/editar'>Editar</Link>]}>
              <Row >
+               <h5>Información de la Mascota</h5>
                <Col m={4}  >
-                <h5 className="txt-bold" >Nombre:<span  className="txt-normal" >Kaneki</span> </h5>
+                <h5 className="txt-bold" >Nombre: <span  className="txt-normal" >{infoUser['name']}</span> </h5>
                </Col>
                <Col m={4} >
-                 <h5 className="txt-bold" >Edad:<span  className="txt-normal" >7</span> </h5>
+                 <h5 className="txt-bold" >Edad: <span  className="txt-normal" >{infoUser['age']}</span> </h5>
                </Col>
                <Col m={4}  >
-                 <h5 className="txt-bold" >Raza:<span  className="txt-normal" >Akita</span> </h5>
+                 <h5 className="txt-bold" >Raza: <span  className="txt-normal" >{infoUser['breed']}</span> </h5>
                </Col>
              </Row>
              <Row >
                  <Col m={4}  >
-                  <h5 className="txt-bold" >Nacimiento:<span  className="txt-normal" >12/18/2015</span> </h5>
+                   <h5 className="txt-bold" >Nacimiento:<span  className="txt-normal" >{infoUser['birth']}</span> </h5>
                  </Col>
                  <Col m={4} >
                    <h5 className="txt-bold" >Color:<span  className="txt-normal" >Cafe</span> </h5>
@@ -37,6 +66,30 @@ class Profile extends Component{
                    <h5 className="txt-bold" >Raza:<span  className="txt-normal" >Akita</span> </h5>
                  </Col>
              </Row>
+            <div className="divider"></div>
+            <h5>Información del dueño</h5>
+            <Row >
+              <Col m={4}  >
+                <h5 className="txt-bold" >Nombre: <span  className="txt-normal" >{infoUser['name']}</span> </h5>
+              </Col>
+              <Col m={4} >
+                <h5 className="txt-bold" >Edad: <span  className="txt-normal" >{infoUser['age']}</span> </h5>
+              </Col>
+              <Col m={4}  >
+                <h5 className="txt-bold" >Raza: <span  className="txt-normal" >{infoUser['breed']}</span> </h5>
+              </Col>
+            </Row>
+            <Row >
+              <Col m={4}  >
+                <h5 className="txt-bold" >Nacimiento:<span  className="txt-normal" >{infoUser['birth']}</span> </h5>
+              </Col>
+              <Col m={4} >
+                <h5 className="txt-bold" >Color:<span  className="txt-normal" >Cafe</span> </h5>
+              </Col>
+              <Col m={4}  >
+                <h5 className="txt-bold" >Raza:<span  className="txt-normal" >Akita</span> </h5>
+              </Col>
+            </Row>
           </Card>
         </Tab>
         <Tab title="Cartilla " active>
@@ -78,7 +131,9 @@ class Profile extends Component{
         </Tab>
         <Tab title="código QR " >
           <div className="card">
-            <img className=" responsive-img"  src="http://www.unitag.io/qreator/generate?crs=xnjFkEn%252FP85fCPDXJ%252FXXKg5g6yQi7H4qzUlRVUntU035Re8CX7iHj071HbqF%252BCfYW0fkByoDtlWAYEP%252FkF2dipjP8Ux69VtYkusoonlKTAkgSRnmfwEzhpz3ulb%252BfgcH8xxrpOTbfLtqZS7YE5Pf9g%253D%253D&crd=mXKe51B3LcpJnGj6pepi6fc6j%252Fp9%252BS2%252FCsADr2dTjKKG%252F4NZBtMUYVwOexuNIypnsMxT4Wpvo7OyD8LWb5LflaSZluqGQEs2LxOF4xg25is7fxqFf18de%252FYdSkfdtm9fZwbz0J4lGN7V0oMFe9U8meIHYqnzYPdPLv4oI3eXJ46FoYhB4uJB6kUbKW4qZyEY" alt=""/>
+            <GenerateQR
+              imageQr={imageUrl}
+            />
           </div>
         </Tab>
         <Tab title="Faq " >
