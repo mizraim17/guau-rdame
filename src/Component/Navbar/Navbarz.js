@@ -11,11 +11,12 @@ const Navbarz = () => {
        <NavItem href='/'>  Inicio</NavItem>
        <NavItem href='/calendar'>Servicios</NavItem>
        <NavItem href='/profile'> FAQ   </NavItem>
-       <NavItem href='/profile'  >
+       <NavItem href='#'  >
          <Modal
            // header='Modal Header'
            fixedFooter
-           trigger={<Button>MODAL</Button>}>
+           trigger={<i  className="material-icons" onClick={ <Login/>} >pets</i>
+           }>
            <Login/>
          </Modal>
        </NavItem>

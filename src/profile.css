@@ -1,0 +1,18 @@
+.titulo{
+  font-weight: bold;
+  font-size: 1.3rem;
+}
+
+.txt-bold{
+  text-align: left;
+  font-size: 1rem;
+  font-weight: bold;
+}
+
+.txt-normal{
+  font-weight: normal;
+}
+
+.txt-justify{
+  text-align: justify;
+}

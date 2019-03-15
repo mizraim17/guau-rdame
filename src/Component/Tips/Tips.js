@@ -1,47 +1,44 @@
 import React from 'react'
-
-const Tips = () =>{
+import {Row,Col,CardTitle,Card,Icon} from 'react-materialize'
+const Tips = (props) =>{
   return(
-    <div className="card ">
-      <div className="card-header blue darken-4">
-        <p className="white-text txtInden">
+    <Row>
+      <Card
+        header={
+          <CardTitle image='' className=" blue lighten-2 white-text left-align ">
+            {/*<Moment  fromNow className="txt-comment">*/}
+              {/*{post.dateCreated}*/}
+            {/*</Moment>*/}
+            12/06/18
+          </CardTitle>
 
-          12-dic
+        }
+        actions={
+          [ <Row className="center-align">
+            <Col s={4} m={4}>
+              <i onClick={props.copyTips}
+                className="material-icons" >thumb_up
+              </i>
+            </Col>
+            <Col s={4} m={4}>
+              <Icon>
+                share
+              </Icon >
+            </Col>
+            <Col s={4} m={4}>
+              <Icon>
+                insert_comment
+              </Icon >
+            </Col>
+          </Row>]
+        }
+      >
+        <p className="ultra-small">
+         Lorem ipsum dolor sit amet, consectetur adipisicing elit. Aliquam aspernatur at doloribus eligendi iusto labore laborum maiores, minima molestiae nam officia quidem quo sapiente sit tempore tenetur voluptas. Iusto, similique?
         </p>
-      </div>
-      <div className="card-content ">
-        <div className="row">
-          <div className="col s12 m12 l12 xl12">
-            <div>
-              <div className="justify-align">
-                <p className="ultra-small">{post.message}</p>
-                <p>
-                  {console.log('like-comment',post.like)}
-                </p>
-              </div>      <br/>
-            </div>
-          </div>
-        </div>
-        <div className="row">
-          <div className="col m4 center-align">
-            {
-              post.like?
-                <i style={like} onClick={() => getlike(idcom)} className="material-icons" >thumb_up</i>
-                :<i  className="material-icons" onClick={() => getlike(idcom)} >thumb_up</i>
-            }
-            <i className="new badge " data-badge-caption="like" >{post.no_like}</i>
-          </div>
-          <div className="col m4">
-            <i className="material-icons">share</i>
-            Compartir
-          </div>
-          <div className="col m4">
-            <i className="material-icons" >insert_comment</i>
-            Comentar
-          </div>
-        </div>
-      </div>
-    </div>
+
+      </Card>
+    </Row>
   )
 }
 
