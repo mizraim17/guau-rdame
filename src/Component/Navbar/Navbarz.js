@@ -1,8 +1,7 @@
 import  React from 'react';
-import {Navbar, NavItem,Icon,Button,Modal,Row,Col} from 'react-materialize'
-import Login from "../Login/Login";
+import {Navbar, NavItem,Icon} from 'react-materialize'
 
-const Navbarz = () => {
+const Navbarz = (props) => {
   const logo = <Icon>attach_file</Icon>;
   const logo2 = "Guau-rdame";
   return(
@@ -11,14 +10,12 @@ const Navbarz = () => {
        <NavItem href='/'>  Inicio</NavItem>
        <NavItem href='/calendar'>Servicios</NavItem>
        <NavItem href='/profile'> FAQ   </NavItem>
-       <NavItem href='#'  >
-         <Modal
-           // header='Modal Header'
-           fixedFooter
-           trigger={<i  className="material-icons" onClick={ <Login/>} >pets</i>
-           }>
-           <Login/>
-         </Modal>
+       <NavItem href='#' onClick={props.Login} >
+          Login
+       </NavItem>
+
+       <NavItem href='#' onClick={props.Register} >
+         Register
        </NavItem>
 
      </Navbar>

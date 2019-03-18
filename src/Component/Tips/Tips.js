@@ -34,7 +34,9 @@ const Tips = (props) =>{
         }
       >
         <p className="ultra-small">
-         Lorem ipsum dolor sit amet, consectetur adipisicing elit. Aliquam aspernatur at doloribus eligendi iusto labore laborum maiores, minima molestiae nam officia quidem quo sapiente sit tempore tenetur voluptas. Iusto, similique?
+          1. Mantener un peso saludable
+
+          Este consejo aplica tanto para mascotas como para los dueños. Uno lleva una vida más ligera cuando no tiene que preocuparse por cargar kilos extra. Tú controlas lo que les estás dando de comer, asegúrate que no les estés dando aserrín. También controla sus porciones y asegúrate que están caminando o corriendo lo suficiente para quemar las calorías. Si hace falta, cómprale también un juguete que lo mantenga activo aún dentro de casa.
         </p>
 
       </Card>

@@ -8,11 +8,34 @@
   font-size: 1rem;
   font-weight: bold;
 }
-
+.calendar {
+  width: 100%;
+  height: 1000px;
+  border: 0px;
+  background-color: transparent;
+  frameborder: "0";
+  allowtransparency: "true";
+}
 .txt-normal{
   font-weight: normal;
 }
 
 .txt-justify{
   text-align: justify;
+}
+
+.px{
+  color: red;
+  padding-top: 20px;
+  padding-bottom: 10px;
+}
+
+.mx{
+  color: red;
+  margin-top: 20px;
+  margin-bottom: 10px;
+}
+
+.mt{
+  margin-top: 10px;
 }

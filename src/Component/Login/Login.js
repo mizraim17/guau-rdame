@@ -11,6 +11,9 @@ class Login  extends  Component {
 
   }
 
+  register= () => {
+
+  }
   onChangeLogin = () =>{
 
   }
@@ -19,7 +22,7 @@ class Login  extends  Component {
     return(
   <Row className="margin-top">
     <Col s={12} m={12} >
-    <div className="section col s12 m6  offset-m4">
+    <div className="section col s12 m6  offset-m3">
       <Tabs className='tab-demo z-depth-1'>
         <Tab title="Veterinario" > <Card  waves='light'>
           <Icon large>local_hospital</Icon>

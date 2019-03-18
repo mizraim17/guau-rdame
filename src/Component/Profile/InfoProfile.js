@@ -6,15 +6,15 @@ const InfoProfile = (props) => {
   return(
 
       <Card
+        className="red accent-1 white-text"
         horizontal
-
         header={
         <CardTitle
           responsive
          image={props.user['image']}
         >
         </CardTitle>}
-        actions={[<Link to='/editar'><Button floating large fabClickOnly className='green' waves='yellow' icon='edit' /></Link>]}>
+        actions={[<Link to='/editProfile'><Button floating large fabClickOnly className='green' waves='yellow' icon='edit' /></Link>]}>
 
         <Row >
           <p className="titulo">Información de la Mascota</p> <br/>
@@ -48,7 +48,7 @@ const InfoProfile = (props) => {
           </Col>
         </Row>
         <div className="divider"> </div>
-        <p className="titulo">Información del dueño</p> <br/>
+         <p className="titulo px">Información del dueño</p>
         <Row >
           <Col m={6}  >
             <h5 className="txt-bold" >Propietario: <span  className="txt-normal" >{props.owner['name']}</span> </h5>
