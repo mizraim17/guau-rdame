@@ -11,6 +11,7 @@ const InfoProfile = (props) => {
         header={
         <CardTitle
           responsive
+          className="z-depth-2"
          image={props.user['image']}
         >
         </CardTitle>}
@@ -43,8 +44,22 @@ const InfoProfile = (props) => {
           <Col m={4}  >
             <h5 className="txt-bold" >Raza: <span  className="txt-normal" >{props.user['breed']}</span> </h5>
           </Col>
-          <Col m={8} >
+          <Col m={4} >
             <h5 className="txt-bold" >Nacimiento: <span  className="txt-normal" >{props.user['birth']}</span> </h5>
+          </Col>
+          <Col m={4} >
+            <h5 className="txt-bold" >Castración: <span  className="txt-normal" >{props.user['date_cut']}</span> </h5>
+          </Col>
+        </Row>
+        <Row >
+          <Col m={4}  >
+            <h5 className="txt-bold" >Señas particulares: <span  className="txt-normal" >{props.user['signs_part']}</span> </h5>
+          </Col>
+          <Col m={4} >
+            <h5 className="txt-bold" >Tatuaje: <span  className="txt-normal" >{props.user['tatto']}</span> </h5>
+          </Col>
+          <Col m={4} >
+            <h5 className="txt-bold" >Chip: <span  className="txt-normal" >{props.user['chip']}</span> </h5>
           </Col>
         </Row>
         <div className="divider"> </div>
@@ -75,6 +90,7 @@ const InfoProfile = (props) => {
           <Col m={4}  >
             <h5 className="txt-bold" >CP: <span  className="txt-normal" >{props.owner['cp']}</span> </h5>
           </Col>
+
         </Row>
       </Card>
   );

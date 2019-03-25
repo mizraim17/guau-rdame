@@ -1,6 +1,6 @@
 import React, {Component} from 'react'
 import {Link} from "react-router-dom";
-import {Tab, Tabs, Button, CardTitle, Col, Row, Table,Icon} from 'react-materialize';
+import {Tab, Tabs, Button,  Col, Row} from 'react-materialize';
 import GenerateQR from "../QRcode/GenerateQR";
 import QRCode from "qrcode";
 import InfoProfile from "./InfoProfile";
@@ -12,7 +12,7 @@ import copy from 'copy-to-clipboard'
 import Cycle from "../Cycle/Cycle";
 import '../../profile.css';
 import Faq from "../Faq/Faq";
-import File from "../Files/File";
+import Files from "../Files/Files";
 
 
 class Profile extends Component{
@@ -27,7 +27,11 @@ class Profile extends Component{
       breed:"akita",
       color:"cafe",
       birth:"02/09/1983",
-      image:"https://www.ecured.cu/images/thumb/a/a4/Perros1.jpg/260px-Perros1.jpg"
+      image:"https://www.ecured.cu/images/thumb/a/a4/Perros1.jpg/260px-Perros1.jpg",
+      date_cut:"02/09/2003",
+      signs_part:"tiene mancha en el ojo",
+      tatto:"sasa",
+      chip:"23872387"
     },
     infoOwner:{
       name:'Mizraim Martinez Sánchez',
@@ -101,7 +105,7 @@ class Profile extends Component{
               <div>
                { infoFile.map((el,i)=>{
                  return(
-                   <File
+                   <Files
                      key={i}
                      infoFile={el}
                    />

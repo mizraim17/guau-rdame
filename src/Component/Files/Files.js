@@ -1,11 +1,11 @@
-import React,{Component} from 'react'
+import React from 'react'
 import {Card, CardTitle,Button, Icon,Col,  Row} from "react-materialize";
 
-const File = (props) =>{
+const Files = (props) =>{
   let info=props.infoFile
     return(
       <Row>
-        <Card className="red accent-1  "
+        <Card
           header={
             <CardTitle image='' className="z-depth-2 orange  accent-12 white-text left-align ">
 
@@ -137,12 +137,11 @@ const File = (props) =>{
             </Row>
           </Card>
           <Button waves='light'>Tratamiento<Icon right>hotel</Icon></Button>
-
         </Card>
-        <img className="materialboxed" className="center-align" alt="lose" width="650" src=" http://www.uco.es/organiza/departamentos/anatomia-y-anat-patologica/peques/imagenes1_archivos/image009.jpg"/>
+        <img className="materialboxed center-align"  alt="lose" width="650" src=" http://www.uco.es/organiza/departamentos/anatomia-y-anat-patologica/peques/imagenes1_archivos/image009.jpg"/>
       </Row>
     );
 
 }
 
-export default File
+export default Files

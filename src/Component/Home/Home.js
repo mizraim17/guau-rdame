@@ -1,7 +1,7 @@
 import  React, {Component} from  'react'
 import Navbarz from "../Navbar/Navbarz";
 import Login from "../Login/Login";
-import InfoProfile from "../Profile/InfoProfile";
+
 import InfoHome from "./InfoHome";
  
 

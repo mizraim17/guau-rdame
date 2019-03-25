@@ -2,8 +2,7 @@ import  React from 'react';
 import {Navbar, NavItem,Icon} from 'react-materialize'
 
 const Navbarz = (props) => {
-  const logo = <Icon>attach_file</Icon>;
-  const logo2 = "Guau-rdame";
+  const logo2 = "GuaU-rdame";
   return(
    <div>
      <Navbar brand={logo2 } left className="cyan accent-4" >
@@ -14,7 +13,7 @@ const Navbarz = (props) => {
           Login
        </NavItem>
 
-       <NavItem href='#' onClick={props.Register} >
+       <NavItem href='/register'  >
          Register
        </NavItem>
 
