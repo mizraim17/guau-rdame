@@ -1,12 +1,19 @@
 import React from 'react';
-import {Row, Col}  from 'react-materialize'
+import {Row, Icon}  from 'react-materialize'
 const Page404 = () => {
   return(
     <div>
       <Row>
         <h1>Estas perdido ?</h1>
         <h4>No deberías estar aquí</h4>
-          <img className="materialboxed" className="center-align" alt="lose" width="650" src="https://image.shutterstock.com/image-vector/missing-dog-poster-doodle-vector-450w-174404720.jpg"/>
+          <img className=" "   alt="lose" width="250" src="./images/dog-lose.jpg"/>
+          <Icon large>
+            arrow_forward
+          </Icon>
+        <a href="/">
+          <img className=" "   alt="lose" width="250" src="./images/house-dog.jpg"/>
+        </a>
+        <h4>Vuelve a Casa</h4>
       </Row>
     </div>
   )

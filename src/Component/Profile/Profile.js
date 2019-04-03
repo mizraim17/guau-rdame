@@ -13,10 +13,14 @@ import Cycle from "../Cycle/Cycle";
 import '../../profile.css';
 import Faq from "../Faq/Faq";
 import Files from "../Files/Files";
+import axios from "axios";
 
 
 class Profile extends Component{
   state={
+    info:[],
+    stateForm:false,
+    infoPet:{},
     infoUser:{
       weight:'13kg',
       species:'Canino',
@@ -28,21 +32,11 @@ class Profile extends Component{
       color:"cafe",
       birth:"02/09/1983",
       image:"https://www.ecured.cu/images/thumb/a/a4/Perros1.jpg/260px-Perros1.jpg",
-      date_cut:"02/09/2003",
       signs_part:"tiene mancha en el ojo",
       tatto:"sasa",
       chip:"23872387"
     },
-    infoOwner:{
-      name:'Mizraim Martinez Sánchez',
-      calle:'venus 5',
-      colonia:'Nueva Industrial vallejo',
-      estado:'México',
-      cp:'7700',
-      celular:5527207165,
-      email:'mizraim.martinez@gmail.com'
-
-    },
+    infoOwner:{},
     infoFile: [
       {
         id:1, fecha:"15/04/2019",veterinario:"Tania Vazquez", cedula:"3247843287",dia_hosp:1,
@@ -64,17 +58,65 @@ class Profile extends Component{
     imageUrl:'',
     dataQR:''
   }
+  
+   copytext = () =>{
+    alert('entro')
+    copy('This is some zim ')
 
-    copytext = () =>{
-      alert('entro')
-      copy('This is some zim ')
+  }
+  
+  infoPet= () => {
+    let {infoOwner,infoPet}=this.state;
 
+  console.log('infoOwner=pet=',infoOwner['pet']['_id'])
+    
+    axios.get(`http://localhost:3005/api/pet/${infoOwner['pet']['_id']}`)
+    
+      .then((res)=>{
+        infoPet=res.data;
+        console.log('+++++++',res)
+        alert('as')
+        this.setState({infoPet})
+      
+      })
+    
+      .catch((err)=>{
+      
+        console.log('error pet pet ',err)
+      })
+
+  }
+  
+  infoProfile= () => {
+    let {infoOwner}=this.state;
+    let  idUser=  localStorage.getItem('LSidUser')
+    // console.log('idUser',idUser)
+    axios.get(`http://localhost:3005/api/user/${idUser}`)
+      
+      .then((res)=>{
+        console.log('res.data-->',res.data)
+        infoOwner=res.data;
+        this.setState({infoOwner})
+
+        this.getQR()
+      })
+      .catch((err)=>{
+        console.log(err)
+      })
+    if(infoOwner['name']!==undefined){
+      console.log('entro if')
+      console.log('entro infoOwner',infoOwner)
+      this.getQR()
     }
-
-  componentWillMount() {
-    let {imageUrl,infoUser,dataQR} =this.state;
-    dataQR=JSON.stringify(infoUser)
-    console.log(dataQR)
+  }
+  
+  
+  
+  getQR= () => {
+    
+    let {imageUrl,infoOwner,dataQR} =this.state;
+    // console.log('QRinfoOwner',infoOwner)
+    dataQR=JSON.stringify(infoOwner)
     QRCode.toDataURL(`${dataQR}`)
       .then(url => {
         this.setState({imageUrl:url})
@@ -82,26 +124,67 @@ class Profile extends Component{
       .catch(err => {
         console.error(err)
       })
+    
+   
+    
   }
+  
+  changeForm= () => {
+    let {stateForm} = this.state;
+    stateForm=!stateForm;
+    console.log('stateForm',stateForm)
+    this.setState({stateForm})
+  }
+  
+  onChangeFormPet = (e) => {
+    let {infoPet} =this.state;
+    console.log("campos",infoPet)
+    let field=e.target.name;
+    infoPet[field]= e.target.value;
+    console.log("campos",infoPet)
+    this.setState({infoPet});
+  
+  }
+  
+  submitPet = (e) => {
+    e.preventDefault();
+  }
+  
+  componentWillMount() {
+    this.infoProfile();
+  }
+  
+  componentDidMount() {
+  
+  }
+  
+  
   render() {
-    let {infoUser,imageUrl,infoOwner,infoFile} = this.state
+    
+    let {infoPet,imageUrl,infoOwner,infoFile,stateForm } = this.state
     return(
-      <Row>
+      <Row>{console.log('infoOwner--------render',infoOwner)}
         <Link to='/'>
           <Button floating large fabClickOnly className='red' waves='yellow' icon='directions_run' />
         </Link>
+        <Button onClick={this.infoPet} > ver info pet </Button>
         <Col s={12} m={10} offset="m1">
           <Tabs className='tab-demo z-depth-1'>
-            <Tab title="Perfil " >
+            <Tab title="Perfil "  active>
               <InfoProfile
+                subPet={this.submitPet}
+                changePet={this.onChangeFormPet}
+                changeForm={this.changeForm}
+                stateForm={stateForm}
                 owner={infoOwner}
-                user={infoUser}
+                infoPet={infoPet}
+                
               />
             </Tab>
             <Tab title="Cartilla "  >
               <RecordVac/>
             </Tab>
-            <Tab title="  Expediente" active>
+            <Tab title="  Expediente" >
               <div>
                { infoFile.map((el,i)=>{
                  return(

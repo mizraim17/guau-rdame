@@ -9,14 +9,10 @@ const Navbarz = (props) => {
        <NavItem href='/'>  Inicio</NavItem>
        <NavItem href='/calendar'>Servicios</NavItem>
        <NavItem href='/profile'> FAQ   </NavItem>
+       <NavItem href='/user'> lis-user</NavItem>
        <NavItem href='#' onClick={props.Login} >
           Login
        </NavItem>
-
-       <NavItem href='/register'  >
-         Register
-       </NavItem>
-
      </Navbar>
    </div>
   );

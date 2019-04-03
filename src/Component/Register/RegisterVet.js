@@ -1,40 +1,42 @@
 import React, {Component} from 'react';
-import FormRegister from "./FormRegister";
+import FormRegisterUser from "./FormRegisterUser";
 import axios from 'axios'
-class Register extends Component {
- state={
-   form:{}
- }
+class RegisterVet extends Component {
+  state={
+    url:"http://localhost:3005/api/user",
+    form:{}
+  }
   requestRegister = (e) => {
     e.preventDefault();
-   const {form} = this.state;
-   console.log('form',form)
-
-    axios.post("http://localhost:3005/api/user",form)
+    const {form,url} = this.state;
+    
+    console.log('form',form)
+    
+    axios.post(url,form)
       .then((res)=>{
-
+        this.props.history.push('/user')
       })
       .catch((err)=>{
         console.log(err)
       })
   }
-
-
+  
+  
   onChangeForm = (e) => {
-
+    
     let {form} =this.state;
     let field=e.target.name;
     form[field]= e.target.value;
     console.log("campos",form)
-
+    
     this.setState({  form});
   }
-
+  
   render() {
     return(
       <div>
-        <h1>Registro</h1>
-        <FormRegister
+        <h3>Registro de Veterinario</h3>
+        <FormRegisterUser
           requestRegister={this.requestRegister}
           onChange={this.onChangeForm}
         />
@@ -43,4 +45,4 @@ class Register extends Component {
   }
 }
 
-export default Register;
+export default RegisterVet
