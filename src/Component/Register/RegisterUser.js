@@ -33,7 +33,7 @@ class RegisterUser extends Component {
     form['role']='user';
     let field=e.target.name;
     form[field]= e.target.value;
-    // console.log("campos",form)
+     console.log("campos",form)
    
     this.setState({  form});
   }

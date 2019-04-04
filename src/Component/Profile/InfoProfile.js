@@ -1,7 +1,6 @@
 import React from 'react';
 import {Card, CardTitle, Col, Row, Button} from "react-materialize";
 import {Link} from "react-router-dom";
-import AddPets from "../Pets/AddPets";
 
 const InfoProfile = (props) => {
   return(
@@ -13,9 +12,10 @@ const InfoProfile = (props) => {
         <CardTitle
           responsive="true"
           className="z-depth-2"
-         // image={props.infoPet['image']}
+          
         >
         </CardTitle>}
+        
         actions={[
           <div>
           <Link to='/editProfile'>
@@ -26,30 +26,34 @@ const InfoProfile = (props) => {
           </Link>
           </div>
         ]}>
-        {
-           console.log('infoPet',props.infoPet)
-        }
+       
+          {/*{console.log('9999999999infopet',props.infoPet[0])}*/}
+        
         {
           props.infoPet!==null
           ?
           <div>
              <Row >
+               <Col m={12} s={12} >
+                 <img src={props.infoPet['image']} width="400" alt="photo"/>
+               </Col>
                <Col m={4} s={12} >
                  <h5 className="txt-bold" >Peso:<span className="txt-normal" >{props.infoPet['weight']}</span> </h5>
-               </Col>
-               <Col m={4} s={12}>
-                 <h5 className="txt-bold" >Color:<span  className="txt-normal" >{props.infoPet['color']}</span> </h5>
                </Col>
                <Col m={4} s={12} >
                  <h5 className="txt-bold" >Especie:<span  className="txt-normal" >{props.infoPet['species']}</span> </h5>
                </Col>
+               <Col m={4} s={12}>
+                 <h5 className="txt-bold" >Sexo:<span  className="txt-normal" >{props.infoPet['sex']}</span> </h5>
+               </Col>
+              
              </Row>
              <Row >
                <Col m={4}  >
-               <h5 className="txt-bold" >Raza: <span  className="txt-normal" >{props.infoPet['breed']}</span> </h5>
+               <h4 className="txt-bold" >Nombre: <span  className="txt-normal" >{`${props.infoPet['name']} ${props.infoPet['lastName']}`}</span> </h4>
                </Col>
                <Col m={4} >
-               <h5 className="txt-bold" >Nacimiento: <span  className="txt-normal" >{props.infoPet['birth']}</span> </h5>
+               <h5 className="txt-bold" >Edad: <span  className="txt-normal" >{props.infoPet['age']}</span> </h5>
                </Col>
                <Col m={4} >
                <h5 className="txt-bold" >Castración: <span  className="txt-normal" >{props.infoPet['date_cut']}</span> </h5>
@@ -57,46 +61,24 @@ const InfoProfile = (props) => {
              </Row>
              <Row >
              <Col m={4}  >
-             <h5 className="txt-bold" >Señas particulares: <span  className="txt-normal" >{props.infoPet['signs_part']}</span> </h5>
+             <h5 className="txt-bold" >Raza : <span  className="txt-normal" >{props.infoPet['breed']}</span> </h5>
              </Col>
              <Col m={4} >
-             <h5 className="txt-bold" >Tatuaje: <span  className="txt-normal" >{props.infoPet['tatto']}</span> </h5>
-             </Col>
-             <Col m={4} >
-             <h5 className="txt-bold" >Chip: <span  className="txt-normal" >{props.infoPet['chip']}</span> </h5>
-             </Col>
-             </Row>
-             <Row >
-               <Col m={4} s={12} >
-             <h5 className="txt-bold" >Peso:<span  className="txt-normal" >{props.infoPet['weight']}</span> </h5>
-             </Col>
-             <Col m={4} s={12}>
-             <h5 className="txt-bold" >Color:<span  className="txt-normal" >{props.infoPet['color']}</span> </h5>
-             </Col>
-             <Col m={4} s={12} >
-             <h5 className="txt-bold" >Especie:<span  className="txt-normal" >{props.infoPet['species']}</span> </h5>
-             </Col>
-             </Row>
-             <Row >
-             <Col m={4}  >
-             <h5 className="txt-bold" >Raza: <span  className="txt-normal" >{props.infoPet['breed']}</span> </h5>
+             <h5 className="txt-bold" >Color: <span  className="txt-normal" >{props.infoPet['color']}</span> </h5>
              </Col>
              <Col m={4} >
              <h5 className="txt-bold" >Nacimiento: <span  className="txt-normal" >{props.infoPet['birth']}</span> </h5>
              </Col>
-             <Col m={4} >
-             <h5 className="txt-bold" >Castración: <span  className="txt-normal" >{props.infoPet['date_cut']}</span> </h5>
-             </Col>
              </Row>
              <Row >
-             <Col m={4}  >
-             <h5 className="txt-bold" >Señas particulares: <span  className="txt-normal" >{props.infoPet['signs_part']}</span> </h5>
+               <Col m={4} s={12} >
+             <h5 className="txt-bold" >Señas particulares:<span  className="txt-normal" >{props.infoPet['sign_part']}</span> </h5>
              </Col>
-             <Col m={4} >
-             <h5 className="txt-bold" >Tatuaje: <span  className="txt-normal" >{props.infoPet['tatto']}</span> </h5>
+             <Col m={4} s={12}>
+             <h5 className="txt-bold" >Tatuaje:<span  className="txt-normal" >{props.infoPet['tatto']}</span> </h5>
              </Col>
-             <Col m={4} >
-             <h5 className="txt-bold" >Chip: <span  className="txt-normal" >{props.infoPet['chip']}</span> </h5>
+             <Col m={4} s={12} >
+             <h5 className="txt-bold" >Chip:<span  className="txt-normal" >{props.infoPet['chip']}</span> </h5>
              </Col>
              </Row>
           </div>
@@ -107,7 +89,7 @@ const InfoProfile = (props) => {
          <p className="titulo px">Información del dueño</p>
         <Row >
           <Col m={6}  >
-            <h5 className="txt-bold" >Propietario: <span  className="txt-normal" >{`${props.owner['name']} ${props.owner['apaterno']} ${props.owner['apaterno']}`}</span> </h5>
+            <h5 className="txt-bold" >Propietario: <span  className="txt-normal" >{`${props.owner['name']} ${props.owner['apaterno']} ${props.owner['amaterno']}`}</span> </h5>
           </Col>
           <Col m={6}  >
             <h5 className="txt-bold" >E-mail: <span  className="txt-normal" >{props.owner['email']}</span> </h5>

@@ -1,5 +1,5 @@
 import React from 'react'
-import {Card, CardTitle, Col, Row} from "react-materialize";
+import {Row} from "react-materialize";
 
 
 const Dates = () => {
@@ -7,8 +7,7 @@ const Dates = () => {
   return(
     <Row>
 
-      <iframe className="calendar" src="https://consultammee.youcanbook.me/?noframe=true&skipHeaderFooter=true" id="ycbmiframeconsultammee"
-              >
+      <iframe className="calendar" src="https://consultammee.youcanbook.me/?noframe=true&skipHeaderFooter=true" id="ycbmiframeconsultamme"             >
 
       </iframe>
 

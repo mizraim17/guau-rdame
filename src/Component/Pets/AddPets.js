@@ -4,7 +4,8 @@ import {Link} from "react-router-dom";
 import  axios from 'axios'
 class AddPets extends Component {
   state={
-    form:{}
+    form:{},
+    LSinfoPet:""
   }
   
   changeForm = (e) => {
@@ -18,17 +19,19 @@ class AddPets extends Component {
   }
   
   submitForm = () => {
-    let {form} = this.state;
+    let {form,LSinfoPet} = this.state;
     
     axios.post('http://localhost:3005/api/pet',form)
       .then((res)=>{
         console.log('respet',res.data)
+        localStorage.setItem('LSinfoPet',JSON.stringify(res.data))
         this.props.history.push('/profile')
       })
     
     .catch((err)=>{
       console.log('err',err)
     })
+   
   }
   
   render() {
@@ -36,7 +39,7 @@ class AddPets extends Component {
       <Row>
         <Col m={8} offset="m2" className="z-depth-2">
           
-          <Input s={4} name="weight" label="Peso" onChange={this.changeForm}/>
+          <Input s={4} label="Peso" name="weight" onChange={this.changeForm}/>
           <Input s={4} label="Especies" name="species" onChange={this.changeForm}/>
           <Input s={4} label="Sexo" name="sex" onChange={this.changeForm}/>
           
@@ -45,19 +48,20 @@ class AddPets extends Component {
           <Input s={4} label="Edad" name="age" onChange={this.changeForm}/>
           
           <Input s={4} label="Raza" name="breed" onChange={this.changeForm}/>
-          <Input s={4} label="color" name="color  " onChange={this.changeForm}/>
-          <Input s={4} label="Cumpleaños" name="birth  " onChange={this.changeForm}/>
+          <Input s={4} label="Color" name="color" onChange={this.changeForm}/>
+          <Input s={4} label="Cumpleaños" name="birth" type="date" onChange={this.changeForm}/>
           
           <Input s={4} label="Imagen" name="image" onChange={this.changeForm}/>
-          <Input s={4} label="Señas particulares" onChange={this.changeForm}/>
+          <Input s={4} label="Señas particulares" name="sign_part" onChange={this.changeForm}/>
           <Input s={4} label="tatuaje" name="tatto" onChange={this.changeForm}/>
           
-          <Input s={4} name="chip" label="chip" onChange={this.changeForm}/>
+          <Input s={4} label="chip" name="chip"   onChange={this.changeForm}/>
+          <Input s={4} label="castracción" name="date_cut" type="date"  onChange={this.changeForm}/>
         </Col>
         <Row>
           <Col m={8} offset="m2">
             <br/>
-            <Link to={'/'}>
+            <Link to={'/profile'}>
               <Button s={12} m={12} className="orange" waves='light'>Regresar</Button>
             </Link>
             <Button s={12} m={12} onClick={this.submitForm} waves='light'>Acceder</Button>

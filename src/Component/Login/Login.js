@@ -1,31 +1,37 @@
 import React, {Component} from 'react';
 import {Card, Col,  Row, Input, Icon, Tabs, Tab, Button} from 'react-materialize'
 import {Link, withRouter} from "react-router-dom";
+import axios from 'axios';
 
 class Login  extends  Component {
   state={
-    form:[]
+    form:{}
   };
 
-  login = (e) => {
-    e.preventDefault();
-    let {form} = this.state;
-    console.log('history',this.props)
-    console.log('form[user]',form['user'])
-    if(form['user']==='nada'&&form['password']==='nada'){
-      console.log('entro a si')
-       this.props.history.push('/profile')
-    }
-    else{
-      alert('no es la contraseña')
-    }
-  };
+ 
  
   onChangeLogin = (e) =>{
     let {form} =this.state;
      let name =e.target.name;
      form[name]=e.target.value
     console.log('form',form)
+  }
+  
+  getLogin= (e) => {
+    e.preventDefault()
+    let {form} = this.state;
+    console.log('form--getlogin',form)
+    let user=form['user']
+    
+    axios.post(`http://localhost:3005/api/user/login`,form)
+    .then((response)=>{
+      console.log('res66666666666' ,response)
+      this.props.history.push('/profile')
+    })
+    .catch((err)=>{
+      window.Materialize.toast('usuario o contraseña incorrecta', 1500)
+      console.log('error de login',err)
+    })
   }
 
   render() {
@@ -39,7 +45,7 @@ class Login  extends  Component {
             <div className=" blue-text center-align">
               <Icon className="center-align large material-icons">local_hospital</Icon>
             </div>
-            <form onSubmit={this.login} >
+            <form onSubmit={this.getLogin} >
               <Input
                 s={12}
                 type="text"
@@ -77,7 +83,7 @@ class Login  extends  Component {
           <div className=" blue-text center-align">
             <Icon className="center-align large material-icons">account_circle</Icon>
           </div>
-          <form onSubmit={this.login} >
+          <form onSubmit={this.getLogin} >
             <Input
               s={12}
               

@@ -1,5 +1,5 @@
 import  React from 'react';
-import {Navbar, NavItem,Icon} from 'react-materialize'
+import {Navbar, NavItem} from 'react-materialize'
 
 const Navbarz = (props) => {
   const logo2 = "GuaU-rdame";

@@ -20,7 +20,7 @@ class Profile extends Component{
   state={
     info:[],
     stateForm:false,
-    infoPet:{},
+    infoPet:{},infoQR:{},
     infoUser:{
       weight:'13kg',
       species:'Canino',
@@ -36,7 +36,7 @@ class Profile extends Component{
       tatto:"sasa",
       chip:"23872387"
     },
-    infoOwner:{},
+    infoOwner:{},infoQR2:{},
     infoFile: [
       {
         id:1, fecha:"15/04/2019",veterinario:"Tania Vazquez", cedula:"3247843287",dia_hosp:1,
@@ -62,11 +62,11 @@ class Profile extends Component{
    copytext = () =>{
     alert('entro')
     copy('This is some zim ')
-
   }
   
   infoPet= () => {
     let {infoOwner,infoPet}=this.state;
+    
 
   console.log('infoOwner=pet=',infoOwner['pet']['_id'])
     
@@ -75,7 +75,7 @@ class Profile extends Component{
       .then((res)=>{
         infoPet=res.data;
         console.log('+++++++',res)
-        alert('as')
+      
         this.setState({infoPet})
       
       })
@@ -111,21 +111,31 @@ class Profile extends Component{
   }
   
   
-  
   getQR= () => {
     
-    let {imageUrl,infoOwner,dataQR} =this.state;
+    let { infoOwner,dataQR,infoQR,infoQR2} =this.state;
     // console.log('QRinfoOwner',infoOwner)
-    dataQR=JSON.stringify(infoOwner)
-    QRCode.toDataURL(`${dataQR}`)
-      .then(url => {
-        this.setState({imageUrl:url})
-      })
-      .catch(err => {
-        console.error(err)
-      })
+    // dataQR=JSON.stringify(infoOwner)
+    let Nombre_Propietario=infoOwner['name'],
+      Telefono=infoOwner['cellphone']
+    infoQR=`Nombre Propietario:${Nombre_Propietario},Telefóno: ${Telefono} `
+      
     
-   
+    console.log('infoQR=',infoQR)
+    
+    
+    infoQR2=JSON.stringify(infoQR)
+    console.log('infoQR2=',infoQR2)
+    
+    this.setState({infoQR2})
+    
+    QRCode.toDataURL(`${infoQR2}`)
+    .then(url => {
+      this.setState({imageUrl:url})
+    })
+    .catch(err => {
+      console.error(err)
+    })
     
   }
   
@@ -151,7 +161,11 @@ class Profile extends Component{
   }
   
   componentWillMount() {
+    let {infoPet}= this.state;
     this.infoProfile();
+    infoPet=localStorage.getItem('LSinfoPet')
+    console.log('LS-infoPet[0]',infoPet)
+    this.setState({infoPet})
   }
   
   componentDidMount() {
@@ -162,6 +176,7 @@ class Profile extends Component{
   render() {
     
     let {infoPet,imageUrl,infoOwner,infoFile,stateForm } = this.state
+  
     return(
       <Row>{console.log('infoOwner--------render',infoOwner)}
         <Link to='/'>
