@@ -4,8 +4,7 @@ import {Link} from "react-router-dom";
 import  axios from 'axios'
 class AddPets extends Component {
   state={
-    form:{},
-    LSinfoPet:""
+    form:{}
   }
   
   changeForm = (e) => {
@@ -19,7 +18,7 @@ class AddPets extends Component {
   }
   
   submitForm = () => {
-    let {form,LSinfoPet} = this.state;
+    let {form} = this.state;
     
     axios.post('http://localhost:3005/api/pet',form)
       .then((res)=>{

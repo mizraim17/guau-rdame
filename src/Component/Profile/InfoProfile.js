@@ -3,6 +3,7 @@ import {Card, CardTitle, Col, Row, Button} from "react-materialize";
 import {Link} from "react-router-dom";
 
 const InfoProfile = (props) => {
+  
   return(
 
       <Card
@@ -10,6 +11,7 @@ const InfoProfile = (props) => {
         horizontal
         header={
         <CardTitle
+          image=''
           responsive="true"
           className="z-depth-2"
           
@@ -27,15 +29,14 @@ const InfoProfile = (props) => {
           </div>
         ]}>
        
-          {/*{console.log('9999999999infopet',props.infoPet[0])}*/}
-        
         {
-          props.infoPet!==null
+          //console.log(props.infoPet)
+          (Object.keys(props.infoPet).length !== 0)
           ?
           <div>
              <Row >
                <Col m={12} s={12} >
-                 <img src={props.infoPet['image']} width="400" alt="photo"/>
+                 <img src={props.infoPet['image']} width="400" alt="photo_profile"/>
                </Col>
                <Col m={4} s={12} >
                  <h5 className="txt-bold" >Peso:<span className="txt-normal" >{props.infoPet['weight']}</span> </h5>

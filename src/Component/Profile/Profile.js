@@ -14,7 +14,7 @@ import '../../profile.css';
 import Faq from "../Faq/Faq";
 import Files from "../Files/Files";
 import axios from "axios";
-
+import 'moment/locale/es'
 
 class Profile extends Component{
   state={
@@ -56,7 +56,8 @@ class Profile extends Component{
       }
     ],
     imageUrl:'',
-    dataQR:''
+    dataQR:'',
+    tips:{}
   }
   
    copytext = () =>{
@@ -65,64 +66,27 @@ class Profile extends Component{
   }
   
   infoPet= () => {
-    let {infoOwner,infoPet}=this.state;
-    
-
-  console.log('infoOwner=pet=',infoOwner['pet']['_id'])
-    
-    axios.get(`http://localhost:3005/api/pet/${infoOwner['pet']['_id']}`)
-    
-      .then((res)=>{
-        infoPet=res.data;
-        console.log('+++++++',res)
-      
-        this.setState({infoPet})
-      
-      })
-    
-      .catch((err)=>{
-      
-        console.log('error pet pet ',err)
-      })
-
-  }
-  
-  infoProfile= () => {
     let {infoOwner}=this.state;
-    let  idUser=  localStorage.getItem('LSidUser')
-    // console.log('idUser',idUser)
-    axios.get(`http://localhost:3005/api/user/${idUser}`)
-      
-      .then((res)=>{
-        console.log('res.data-->',res.data)
-        infoOwner=res.data;
-        this.setState({infoOwner})
-
-        this.getQR()
-      })
-      .catch((err)=>{
-        console.log(err)
-      })
-    if(infoOwner['name']!==undefined){
-      console.log('entro if')
-      console.log('entro infoOwner',infoOwner)
-      this.getQR()
-    }
+    //console.log('*******',Object.keys(infoOwner))
+    //axios.get(`http://localhost:3005/api/pet/${petid}`)
+    return(axios.get(`http://localhost:3005/api/pet/${infoOwner['pet']['_id']}`))
+    
   }
   
+  infoProfile=  () => {
+    let  idUser=  localStorage.getItem('LSidUser')
+     return(axios.get(`http://localhost:3005/api/user/${idUser}`))
+  }
   
-  getQR= () => {
+  getQR = () => {
+
+    let { infoOwner,infoQR,infoQR2} =this.state;
     
-    let { infoOwner,dataQR,infoQR,infoQR2} =this.state;
-    // console.log('QRinfoOwner',infoOwner)
-    // dataQR=JSON.stringify(infoOwner)
     let Nombre_Propietario=infoOwner['name'],
-      Telefono=infoOwner['cellphone']
-    infoQR=`Nombre Propietario:${Nombre_Propietario},Telefóno: ${Telefono} `
-      
-    
+        Telefono=infoOwner['cellphone']
+        infoQR=`Nombre Propietario: ${Nombre_Propietario},Telefóno: ${Telefono}`
+       
     console.log('infoQR=',infoQR)
-    
     
     infoQR2=JSON.stringify(infoQR)
     console.log('infoQR2=',infoQR2)
@@ -161,31 +125,52 @@ class Profile extends Component{
   }
   
   componentWillMount() {
-    let {infoPet}= this.state;
-    this.infoProfile();
-    infoPet=localStorage.getItem('LSinfoPet')
-    console.log('LS-infoPet[0]',infoPet)
-    this.setState({infoPet})
+    //const primeraxios = this.infoProfile()
+    //console.log("primeraxios",primeraxios)
+    //primeraxios.then(res =>{
+    this.getTips().then((response)=>{
+      this.setState({tips:response.data})
+    })
+    
+    this.infoProfile().then(res =>{
+      this.setState({infoOwner: res.data})
+      console.log('lllllll',res.data['pet'])
+      if(res.data['pet']!==undefined)
+      {
+        this.infoPet()
+        .then(res=>{
+          this.setState({infoPet: res.data})
+        })
+        .catch((error)=>{
+          console.log(error)
+        });
+      }
+    });
+ 
   }
   
   componentDidMount() {
-  
+    this.getQR()
   }
   
   
+  getTips = () => {
+    return( axios.get('http://localhost:3005/api/tips'))
+  }
+  
   render() {
     
-    let {infoPet,imageUrl,infoOwner,infoFile,stateForm } = this.state
-  
+    let {infoPet,imageUrl,infoOwner,infoFile,stateForm, tips } = this.state
+    
     return(
-      <Row>{console.log('infoOwner--------render',infoOwner)}
+      <Row>{console.log('infoOwner--------render',Object.keys(infoOwner), Object.values(infoOwner))}
         <Link to='/'>
           <Button floating large fabClickOnly className='red' waves='yellow' icon='directions_run' />
         </Link>
-        <Button onClick={this.infoPet} > ver info pet </Button>
+        <Button onClick={this.getTips} > ver info pet </Button>
         <Col s={12} m={10} offset="m1">
           <Tabs className='tab-demo z-depth-1'>
-            <Tab title="Perfil "  active>
+            <Tab title="Perfil "  >
               <InfoProfile
                 subPet={this.submitPet}
                 changePet={this.onChangeFormPet}
@@ -193,7 +178,6 @@ class Profile extends Component{
                 stateForm={stateForm}
                 owner={infoOwner}
                 infoPet={infoPet}
-                
               />
             </Tab>
             <Tab title="Cartilla "  >
@@ -209,19 +193,25 @@ class Profile extends Component{
                    />
                  );
                })}
-
               </div>
             </Tab>
             <Tab title="  Citas">Citas
               <Dates/>
             </Tab>
-            <Tab title="  CaniTips">
-              <Tips
-                copyTips={this.copytext}
-              />
-              <Tips
-                copyTips={this.copytext}
-              />
+            <Tab title="  CaniTips" active>
+              {
+                (Object.keys(tips).length !== 0)
+                ?tips.map((el, i) => {
+                  return (
+                    <Tips
+                      copyTips={this.copytext}
+                      key={i}
+                      tip={el}
+                    />
+                  )
+                })
+                  :""
+              }
             </Tab>
             <Tab title="código QR " >
               <div className="card">
@@ -240,7 +230,6 @@ class Profile extends Component{
               <Faq/>
             </Tab>
           </Tabs>
-
         </Col>
       </Row>
     );

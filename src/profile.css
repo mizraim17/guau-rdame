@@ -25,9 +25,15 @@
 }
 
 .px{
+
   color: red;
   padding-top: 20px;
   padding-bottom: 10px;
+}
+
+.pb{
+  background-color: violet;
+  margin-top: 10px;
 }
 
 .mx{
@@ -42,5 +48,4 @@
 
 .img-between{
   width: 2%;
-
 }

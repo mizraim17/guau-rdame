@@ -1,15 +1,19 @@
 import React from 'react'
-import {Row,Col,CardTitle,Card,Icon} from 'react-materialize'
+import {Row,Col,CardTitle,Card,Icon, Chip} from 'react-materialize';
+import Moment from 'react-moment'
+
 const Tips = (props) =>{
   return(
     <Row>
       <Card
         header={
           <CardTitle image='' className=" blue lighten-2 white-text left-align ">
-            {/*<Moment  fromNow className="txt-comment">*/}
-              {/*{post.dateCreated}*/}
-            {/*</Moment>*/}
-            12/06/18
+            <Moment  fromNow className="txt-comment">
+              {props.tip.created_at}
+            </Moment>
+            {
+              console.log('info props tip',props.tip)
+            }
           </CardTitle>
 
         }
@@ -33,12 +37,20 @@ const Tips = (props) =>{
           </Row>]
         }
       >
+        <h4>
+          {props.tip.title}
+        </h4>
         <p className="ultra-small">
-          1. Mantener un peso saludable
-
-          Este consejo aplica tanto para mascotas como para los dueños. Uno lleva una vida más ligera cuando no tiene que preocuparse por cargar kilos extra. Tú controlas lo que les estás dando de comer, asegúrate que no les estés dando aserrín. También controla sus porciones y asegúrate que están caminando o corriendo lo suficiente para quemar las calorías. Si hace falta, cómprale también un juguete que lo mantenga activo aún dentro de casa.
+          {
+            props.tip.tip
+          }
         </p>
-
+        <div>
+          <Chip className={props.tip.color} >
+          {props.tip.topic}
+          </Chip>
+          
+        </div>
       </Card>
     </Row>
   )

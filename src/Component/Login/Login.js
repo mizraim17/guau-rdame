@@ -21,19 +21,25 @@ class Login  extends  Component {
     e.preventDefault()
     let {form} = this.state;
     console.log('form--getlogin',form)
-    let user=form['user']
-    
+
     axios.post(`http://localhost:3005/api/user/login`,form)
-    .then((response)=>{
-      console.log('res66666666666' ,response)
-      this.props.history.push('/profile')
-    })
+      .then((response)=>{
+        console.log('res66666666666' ,response.data.role)
+        if (response.data.role==='user'){
+          this.props.history.push('/profile')
+        }
+        else {
+          this.props.history.push('/profileVet')
+        }
+      })
     .catch((err)=>{
       window.Materialize.toast('usuario o contraseña incorrecta', 1500)
       console.log('error de login',err)
     })
   }
+  
 
+  
   render() {
     return(
   <Row className="margin-top">
@@ -49,7 +55,7 @@ class Login  extends  Component {
               <Input
                 s={12}
                 type="text"
-                name="nickname"
+                name="user"
                 onChange={this.onChangeLogin}
                 required
                 aria-required="true"
@@ -60,8 +66,7 @@ class Login  extends  Component {
               <Input
                 s={12}
                 suggested="current-password"
-                name="secretword"
-                id="icon_prefix"
+                name="password"
                 type="password"
                 onChange={this.onChangeLogin}
                 required
@@ -86,7 +91,6 @@ class Login  extends  Component {
           <form onSubmit={this.getLogin} >
             <Input
               s={12}
-              
               type="text"
               name="user"
               onChange={this.onChangeLogin}
@@ -100,7 +104,6 @@ class Login  extends  Component {
               s={12}
               suggested="current-password"
               name="password"
-              
               type="password"
               onChange={this.onChangeLogin}
               required
@@ -108,12 +111,10 @@ class Login  extends  Component {
               className="validate" >
               <Icon>lock_outline</Icon>
             </Input>
-            {/*<Row>*/}
             <Button s={6} waves='light'>Acceder</Button>
             <Link to="/register/user" className="otherFields">
               <Button s={6} waves='light'>Registrarse</Button>
             </Link>
-              {/*<Row>*/}
           </form>
         </Card>
         </Tab>
