@@ -8,14 +8,13 @@ const Tips = (props) =>{
       <Card
         header={
           <CardTitle image='' className=" blue lighten-2 white-text left-align ">
-            <Moment  fromNow className="txt-comment">
+            <Moment   fromNow className="txt-comment">
               {props.tip.created_at}
             </Moment>
             {
-              console.log('info props tip',props.tip)
+              // console.log('info props tip',props.tip)
             }
           </CardTitle>
-
         }
         actions={
           [ <Row className="center-align">
@@ -49,7 +48,6 @@ const Tips = (props) =>{
           <Chip className={props.tip.color} >
           {props.tip.topic}
           </Chip>
-          
         </div>
       </Card>
     </Row>

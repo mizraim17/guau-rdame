@@ -25,9 +25,9 @@ const FormRegisterUser = (props) => {
           <Input s={4} label="Colonia" onChange={props.onChange} name="community"   />
           <Row>
             <Link to={'/'}>
-              <Button s={12} m={12}  waves='light'>Regresar</Button>
+              <Button s={12} m={12} className="orange"  waves='light'>Regresar</Button>
             </Link>
-            <Button s={12} m={12}  waves='light'>Acceder</Button>
+            <Button s={12} m={12}  waves='light'>Guaurdar</Button>
          </Row>
         </form>
         </Col>

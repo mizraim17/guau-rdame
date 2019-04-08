@@ -38,6 +38,8 @@ class CaniTipsVet extends Component{
       case 'General':
         form['color']="purple accent-1";
         break;
+      default:
+        break;
     }
     
     if(e.target.type ==="checkbox"&&e.target.checked ){

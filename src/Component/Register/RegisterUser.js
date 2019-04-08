@@ -10,7 +10,7 @@ class RegisterUser extends Component {
   requestRegister = (e) => {
    e.preventDefault();
    let {form} = this.state;
-
+    form['role']='user';
     axios.post('http://localhost:3005/api/user',form)
       
       .then((res)=>{
@@ -30,7 +30,7 @@ class RegisterUser extends Component {
   onChangeFormUser = (e) => {
     
     let {form} =this.state;
-    form['role']='user';
+
     let field=e.target.name;
     form[field]= e.target.value;
      console.log("campos",form)

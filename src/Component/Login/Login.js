@@ -9,7 +9,6 @@ class Login  extends  Component {
   };
 
  
- 
   onChangeLogin = (e) =>{
     let {form} =this.state;
      let name =e.target.name;
@@ -24,8 +23,9 @@ class Login  extends  Component {
 
     axios.post(`http://localhost:3005/api/user/login`,form)
       .then((response)=>{
-        console.log('res66666666666' ,response.data.role)
+        console.log('res66666666666' ,response.data._id)
         if (response.data.role==='user'){
+          localStorage.setItem('LSidUser',response.data._id)
           this.props.history.push('/profile')
         }
         else {
@@ -66,6 +66,7 @@ class Login  extends  Component {
               <Input
                 s={12}
                 suggested="current-password"
+                label="password"
                 name="password"
                 type="password"
                 onChange={this.onChangeLogin}
@@ -77,7 +78,7 @@ class Login  extends  Component {
               {/*<Row>*/}
               <Button s={6}  waves='light'>Acceder</Button>
               <Link to="/register/vet" className="otherFields">
-                <Button s={6} waves='light'>Registrarse</Button>
+                <Button s={6} waves='light' className="red accent-1" >Registrarse</Button>
               </Link>
               {/*<Row>*/}
             </form>
@@ -102,6 +103,7 @@ class Login  extends  Component {
             </Input>
             <Input
               s={12}
+              label="contraseña"
               suggested="current-password"
               name="password"
               type="password"
@@ -113,7 +115,7 @@ class Login  extends  Component {
             </Input>
             <Button s={6} waves='light'>Acceder</Button>
             <Link to="/register/user" className="otherFields">
-              <Button s={6} waves='light'>Registrarse</Button>
+              <Button s={6} waves='light' className="red accent-2" >Registrarse</Button>
             </Link>
           </form>
         </Card>

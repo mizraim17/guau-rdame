@@ -21,21 +21,7 @@ class Profile extends Component{
     info:[],
     stateForm:false,
     infoPet:{},infoQR:{},
-    infoUser:{
-      weight:'13kg',
-      species:'Canino',
-      sex:'Hembra',
-      name:"Cafecito",
-      lastName:"Martínez",
-      age:"7",
-      breed:"akita",
-      color:"cafe",
-      birth:"02/09/1983",
-      image:"https://www.ecured.cu/images/thumb/a/a4/Perros1.jpg/260px-Perros1.jpg",
-      signs_part:"tiene mancha en el ojo",
-      tatto:"sasa",
-      chip:"23872387"
-    },
+    infoVet:{},
     infoOwner:{},infoQR2:{},
     infoFile: [
       {
@@ -73,24 +59,22 @@ class Profile extends Component{
     
   }
   
-  infoProfile=  () => {
-    let  idUser=  localStorage.getItem('LSidUser')
-     return(axios.get(`http://localhost:3005/api/user/${idUser}`))
+  infoVet=  () => {
+   let {infoPet}= this.state
+    console.log('infopet -peticion',infoPet.vet)
+    
+     return(axios.get(`http://localhost:3005/api/user/vet/${infoPet.vet}`))
   }
   
   getQR = () => {
 
     let { infoOwner,infoQR,infoQR2} =this.state;
-    
-    let Nombre_Propietario=infoOwner['name'],
-        Telefono=infoOwner['cellphone']
-        infoQR=`Nombre Propietario: ${Nombre_Propietario},Telefóno: ${Telefono}`
-       
-    console.log('infoQR=',infoQR)
-    
+    console.log('------',infoOwner)
+    let Nombre_Propietario=`${infoOwner['name']} ${infoOwner['lastname']}`,
+    Telefono=infoOwner['cellphone']
+    infoQR=`Nombre Propietario: ${Nombre_Propietario},Telefóno: ${Telefono}`
+   
     infoQR2=JSON.stringify(infoQR)
-    console.log('infoQR2=',infoQR2)
-    
     this.setState({infoQR2})
     
     QRCode.toDataURL(`${infoQR2}`)
@@ -101,6 +85,11 @@ class Profile extends Component{
       console.error(err)
     })
     
+  }
+  
+  logOut= () => {
+  localStorage.removeItem('LSidUser')
+    this.props.history.push('/')
   }
   
   changeForm= () => {
@@ -124,33 +113,54 @@ class Profile extends Component{
     e.preventDefault();
   }
   
+  infoProfile=  () => {
+    let  idUser=  localStorage.getItem('LSidUser')
+    console.log('idUser',idUser)
+    return(axios.get(`http://localhost:3005/api/user/${idUser}`))
+  }
+  
   componentWillMount() {
-    //const primeraxios = this.infoProfile()
-    //console.log("primeraxios",primeraxios)
-    //primeraxios.then(res =>{
     this.getTips().then((response)=>{
-      this.setState({tips:response.data})
+      let tempTips=response.data;
+      tempTips.sort((a, b) => a.created_at !== b.created_at ? a.created_at > b.created_at ? -1 : 1 : 0);
+      this.setState({tips:tempTips})
     })
     
-    this.infoProfile().then(res =>{
+    this.infoProfile()
+      .then(res =>{
+      console.log('res.data',res.data)
       this.setState({infoOwner: res.data})
-      console.log('lllllll',res.data['pet'])
+      console.log('res.DATA.pet',res.data['pet'])
+    
       if(res.data['pet']!==undefined)
       {
+        console.log('entro a la super condicion ')
         this.infoPet()
         .then(res=>{
           this.setState({infoPet: res.data})
+          console.log('infopetttt',res.data)
+          this.infoVet()
+            .then((response)=>{
+              console.log('INFOVET====',response.data)
+              this.setState({infoVet:response.data})
+            })
+            .catch((error)=>{
+              console.log(error)
+            })
+  
         })
         .catch((error)=>{
           console.log(error)
         });
       }
+        this.getQR()
+       
     });
  
   }
   
   componentDidMount() {
-    this.getQR()
+  
   }
   
   
@@ -160,17 +170,14 @@ class Profile extends Component{
   
   render() {
     
-    let {infoPet,imageUrl,infoOwner,infoFile,stateForm, tips } = this.state
+    let {infoVet, infoPet,imageUrl,infoOwner,infoFile,stateForm, tips } = this.state
     
     return(
       <Row>{console.log('infoOwner--------render',Object.keys(infoOwner), Object.values(infoOwner))}
-        <Link to='/'>
-          <Button floating large fabClickOnly className='red' waves='yellow' icon='directions_run' />
-        </Link>
-        <Button onClick={this.getTips} > ver info pet </Button>
+        <Button onClick={this.logOut} placeholder="Salir" floating large fabClickOnly className='red' waves='yellow' icon='directions_run' />
         <Col s={12} m={10} offset="m1">
           <Tabs className='tab-demo z-depth-1'>
-            <Tab title="Perfil "  >
+            <Tab title="Perfil "  active>
               <InfoProfile
                 subPet={this.submitPet}
                 changePet={this.onChangeFormPet}
@@ -178,6 +185,8 @@ class Profile extends Component{
                 stateForm={stateForm}
                 owner={infoOwner}
                 infoPet={infoPet}
+                infoVet={infoVet}
+                
               />
             </Tab>
             <Tab title="Cartilla "  >
@@ -198,7 +207,7 @@ class Profile extends Component{
             <Tab title="  Citas">Citas
               <Dates/>
             </Tab>
-            <Tab title="  CaniTips" active>
+            <Tab title="  CaniTips"  >
               {
                 (Object.keys(tips).length !== 0)
                 ?tips.map((el, i) => {
