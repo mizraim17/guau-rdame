@@ -1,9 +1,8 @@
 import React from 'react';
-import {Card, CardTitle, Col, Row, Button} from "react-materialize";
+import {Card, CardTitle, Col, Row, Button, Chip} from "react-materialize";
 import {Link} from "react-router-dom";
 import Moment from 'react-moment'
 
-import 'moment/locale/fr'
 
 const InfoProfile = (props) => {
 
@@ -37,7 +36,7 @@ const InfoProfile = (props) => {
           <div>
              <Row >
                <Col m={12} s={12} >
-                 <img src={props.infoPet['image']} width="400" alt="photo_profile"/>
+                 <img src={props.infoPet['imgPath']} height="300" alt="photo_profile"/>
                </Col>
                <Col m={4} s={12} >
                  <h5 className="txt-bold" >Peso: <span className="txt-normal" >{props.infoPet['weight']}</span> </h5>
@@ -81,26 +80,33 @@ const InfoProfile = (props) => {
              </Row>
              <Row >
                <Col m={4} s={12} >
-             <h5 className="txt-bold" >Señas particulares: <span  className="txt-normal" >{props.infoPet['sign_part']}</span> </h5>
-             </Col>
-             <Col m={4} s={12}>
-             <h5 className="txt-bold" >Tatuaje: <span  className="txt-normal" >{props.infoPet['tatto']}</span> </h5>
-             </Col>
-             <Col m={4} s={12} >
-             <h5 className="txt-bold" >Chip: <span  className="txt-normal" >{props.infoPet['chip']}</span> </h5>
-             </Col>
-               <Col m={6}>
-                Veterinario:{
-                 `${props.infoVet['name']} ${props.infoVet['lastName']}`
-               
-               }
+               <h5 className="txt-bold" >Señas particulares: <span  className="txt-normal" >{props.infoPet['sign_part']}</span> </h5>
                </Col>
-               <Col m={6}>
-                 Teléfono:{
-                 `${props.infoVet['cellphone']} `
-               }
+               <Col m={4} s={12}>
+               <h5 className="txt-bold" >Tatuaje: <span  className="txt-normal" >{props.infoPet['tatto']}</span> </h5>
                </Col>
-             </Row>
+               <Col m={4} s={12} >
+               <h5 className="txt-bold" >Chip: <span  className="txt-normal" >{props.infoPet['chip']}</span> </h5>
+               </Col>
+               <div className="divider">
+                 <hr/>
+               </div>
+               <Col m={3}>
+                  {
+                    (Object.keys(props.infoVet).length !== 0)?
+                   
+                     <Card className="center-align z-depth-2 card-contacts gray-text"   >
+                       <img src="https://d2yoo3qu6vrk5d.cloudfront.net/images/20181113152329/lee_sandra_0252_xret-683x1024-482x320.jpg" className="circle align-center" width="50" alt=""/>
+                       <div>
+                         <p className="nameUser ">{`${props.infoVet['name']} ${props.infoVet['apaterno']}`}</p>
+                         <p className="nameUser ">   {`${props.infoVet['cellphone']}`} </p>
+                         <br/>
+                       </div>
+                     </Card>
+                     :""
+                  }
+               </Col>
+             </Row><div className="divider"> </div>
           </div>
           :<Row>
               <Col m={6}>

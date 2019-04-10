@@ -5,7 +5,7 @@ import FormRegisterVet from "./FormRegisterVet";
 class RegisterVet extends Component {
   state={
     url:"http://localhost:3005/api/user",
-    form:{}
+    form:{},comboCp:{},data:{}
   }
   
   requestRegister = (e) => {
@@ -28,22 +28,46 @@ class RegisterVet extends Component {
   
   
   onChangeForm = (e) => {
+
+      let {form,data,comboCp} = this.state;
+      console.log('form---------->',form)
+      let name= e.target.name;
+      form[name]=e.target.value;
+      if(name==='zipcode'&&form['zipcode'].length===5){
+        console.log('cp',form['cp'])
+        axios.get(`http://sepomex.icalialabs.com/api/v1/zip_codes?cp=${form['zipcode']}`)
+          .then(res => {
+            data=res.data.zip_codes;
+            console.log(data);
+            comboCp=data;
+            form['state']=comboCp[0]['d_estado'];
+            form['city']=comboCp[0]['d_mnpio'];
+            console.log(comboCp)
+          
+            this.setState({comboCp,form})
+          })
+        
+          .catch(err => {
+          
+            console.log(err);
+          })
+      
+      }
+      console.log('municipio=====>',comboCp)
     
-    let {form} =this.state;
-    let field=e.target.name;
-    form[field]= e.target.value;
-    console.log("campos",form)
-    
-    this.setState({  form});
-  }
+    }
+  
   
   render() {
+    let {comboCp,form}= this.state
     return(
       <div>
         <h3>Registro de Veterinario</h3>
         <FormRegisterVet
           requestRegister={this.requestRegister}
           onChange={this.onChangeForm}
+          comboCp={comboCp}
+          form={form}
         />
       </div>
     );

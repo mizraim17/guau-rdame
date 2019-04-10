@@ -3,7 +3,7 @@ import {Button, Card, Col, Input, Row } from "react-materialize";
 import {Link} from "react-router-dom";
 
 const AddCaniTips= (props) => {
-  debugger;
+
   return(
     <Row>
         <Card  waves='light' image='' className="z-depth-2 pt" >

@@ -113,6 +113,24 @@ class Profile extends Component{
     e.preventDefault();
   }
   
+//   nada{
+//   router.put("/pet/:id", (req,res,next)=>{
+//
+//   Pet.findByIdAndUpdate(req.params.id, req.body)
+// .then(() => {
+//   res.status(200).json({
+//                          message: `Proyecto con id ${
+//   req.params.id
+// } se ha actualizado correctamente`
+//   });
+//   })
+//   .catch(err => {
+//   res.json(err);
+//   });
+//   })
+//
+//   }
+  
   infoProfile=  () => {
     let  idUser=  localStorage.getItem('LSidUser')
     console.log('idUser',idUser)
