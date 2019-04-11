@@ -61,7 +61,7 @@ class Login  extends  Component {
     <Col s={12} m={12} >
     <div className="section col s12 m6  offset-m3">
       <Tabs className='tab-demo z-depth-1'>
-        <Tab title="Veterinario" active>
+        <Tab title="Veterinario" >
           <Card  waves='light'>
             <div className=" blue-text center-align">
               <Icon className="center-align large material-icons">local_hospital</Icon>
@@ -99,7 +99,7 @@ class Login  extends  Component {
             </form>
           </Card>
         </Tab>
-      <Tab title="Usuario" >
+      <Tab title="Usuario"  active>
         <Card  waves='light'>
           <div className=" blue-text center-align">
             <Icon className="center-align large material-icons">account_circle</Icon>

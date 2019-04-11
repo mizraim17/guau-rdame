@@ -1,6 +1,6 @@
 import React, {Component} from 'react'
 import {Link} from "react-router-dom";
-import {Tab, Tabs, Button,  Col, Row} from 'react-materialize';
+import {Tab, Tabs, Button, Col, Row} from 'react-materialize';
 import GenerateQR from "../QRcode/GenerateQR";
 import QRCode from "qrcode";
 import InfoProfile from "./InfoProfile";
@@ -15,10 +15,11 @@ import Faq from "../Faq/Faq";
 import Files from "../Files/Files";
 import axios from "axios";
 import 'moment/locale/es'
+import Loader from 'react-loader'
 
 class Profile extends Component{
   state={
-    info:[],
+    info:[],loaded:false,
     stateForm:false,
     infoPet:{},infoQR:{},
     infoVet:{},
@@ -51,13 +52,7 @@ class Profile extends Component{
     copy('This is some zim ')
   }
   
-  infoPet= () => {
-    let {infoOwner}=this.state;
-    //console.log('*******',Object.keys(infoOwner))
-    //axios.get(`http://localhost:3005/api/pet/${petid}`)
-    return(axios.get(`http://localhost:3005/api/pet/${infoOwner['pet']['_id']}`))
-    
-  }
+
   
   infoVet=  () => {
    let {infoPet}= this.state
@@ -79,7 +74,7 @@ class Profile extends Component{
     
     QRCode.toDataURL(`${infoQR2}`)
     .then(url => {
-      this.setState({imageUrl:url})
+      this.setState({imageUrl:url,loaded:true})
     })
     .catch(err => {
       console.error(err)
@@ -113,31 +108,20 @@ class Profile extends Component{
     e.preventDefault();
   }
   
-//   nada{
-//   router.put("/pet/:id", (req,res,next)=>{
-//
-//   Pet.findByIdAndUpdate(req.params.id, req.body)
-// .then(() => {
-//   res.status(200).json({
-//                          message: `Proyecto con id ${
-//   req.params.id
-// } se ha actualizado correctamente`
-//   });
-//   })
-//   .catch(err => {
-//   res.json(err);
-//   });
-//   })
-//
-//   }
-  
   infoProfile=  () => {
     let  idUser=  localStorage.getItem('LSidUser')
     console.log('idUser',idUser)
     return(axios.get(`http://localhost:3005/api/user/${idUser}`))
   }
   
+  infoPet= () => {
+    let {infoOwner}=this.state;
+    return(axios.get(`http://localhost:3005/api/pet/${infoOwner['pet']['_id']}`))
+    
+  }
+  
   componentWillMount() {
+ 
     this.getTips().then((response)=>{
       let tempTips=response.data;
       tempTips.sort((a, b) => a.created_at !== b.created_at ? a.created_at > b.created_at ? -1 : 1 : 0);
@@ -149,8 +133,9 @@ class Profile extends Component{
       console.log('res.data',res.data)
       this.setState({infoOwner: res.data})
       console.log('res.DATA.pet',res.data['pet'])
-    
-      if(res.data['pet']!==undefined)
+      
+      
+      if(res.data['pet'])
       {
         console.log('entro a la super condicion ')
         this.infoPet()
@@ -177,10 +162,6 @@ class Profile extends Component{
  
   }
   
-  componentDidMount() {
-  
-  }
-  
   
   getTips = () => {
     return( axios.get('http://localhost:3005/api/tips'))
@@ -191,7 +172,8 @@ class Profile extends Component{
     let {infoVet, infoPet,imageUrl,infoOwner,infoFile,stateForm, tips } = this.state
     
     return(
-      <Row>{console.log('infoOwner--------render',Object.keys(infoOwner), Object.values(infoOwner))}
+      <Loader loaded={this.state.loaded}>
+        <Row>{console.log('infoOwner--------render',Object.keys(infoOwner), Object.values(infoOwner))}
         <Button onClick={this.logOut} placeholder="Salir" floating large fabClickOnly className='red' waves='yellow' icon='directions_run' />
         <Col s={12} m={10} offset="m1">
           <Tabs className='tab-demo z-depth-1'>
@@ -259,6 +241,8 @@ class Profile extends Component{
           </Tabs>
         </Col>
       </Row>
+      
+      </Loader>
     );
   }
 }

@@ -36,7 +36,7 @@ const InfoProfile = (props) => {
           <div>
              <Row >
                <Col m={12} s={12} >
-                 <img src={props.infoPet['imgPath']} height="300" alt="photo_profile"/>
+                 <img src={props.infoPet['imgPath']} height="200" alt="photo_profile"/>
                </Col>
                <Col m={4} s={12} >
                  <h5 className="txt-bold" >Peso: <span className="txt-normal" >{props.infoPet['weight']}</span> </h5>
@@ -126,6 +126,9 @@ const InfoProfile = (props) => {
         <div className="divider"> </div>
          <p className="titulo px">Información del dueño</p>
         <Row >
+          <Col m={12}  >
+            <img src={props.owner['imgPath']} width="300" alt=""/>
+          </Col>
           <Col m={6}  >
             <h5 className="txt-bold" >Propietario: <span  className="txt-normal" >{`${props.owner['name']} ${props.owner['apaterno']} ${props.owner['amaterno']}`}</span> </h5>
           </Col>

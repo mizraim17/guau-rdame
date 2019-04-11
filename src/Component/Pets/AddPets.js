@@ -1,8 +1,10 @@
 import React, {Component} from 'react';
-import {Button, Col, Icon, Input, Row} from "react-materialize";
+import {Button, Col, Icon, Input, Row,Footer} from "react-materialize";
 import {Link} from "react-router-dom";
 import  axios from 'axios'
 import ListVet from "./ListVet";
+import Loader from 'react-loader'
+
 class AddPets extends Component {
   state={
     form:{},
@@ -12,11 +14,6 @@ class AddPets extends Component {
     file:null
   }
   
-
-  
- 
-  
-  
   getVets = () => {
     
     return(axios.get('http://localhost:3005/api/user'))
@@ -24,8 +21,6 @@ class AddPets extends Component {
   }
   
   showVets = (e) => {
-    // let {word} =this.state;
-    // word = e.target.value;
     this.setState({word:e.target.value})
   }
   
@@ -37,14 +32,18 @@ class AddPets extends Component {
   }
   
   submitImage= () =>{
-    let {form,file,formData} = this.state;
+    let {file,formData} = this.state;
     formData.append('picture',file);
     formData.append('UserID',localStorage.getItem('LSidUser'));
-    axios.post('http://localhost:3005/api/pet', formData, {
+    console.log('---------------',file)
+    if(file!==null)
+    {
+ 
+      axios.post('http://localhost:3005/api/pet', formData, {
       headers: {
         'Content-Type': 'multipart/form-data',
       },
-    })
+      })
       .then((res)=>{
         console.log('respet',res.data)
         localStorage.setItem('LSinfoPet',JSON.stringify(res.data))
@@ -53,13 +52,17 @@ class AddPets extends Component {
           console.log('entroooooooooooooo')
            this.submitForm()
         }
-       
       })
-    
+      
       .catch((err)=>{
         console.log('err',err)
       })
+    }
+    
+  else {
+    window.Materialize.toast('el campo foto es obligatorio', 1500)
   }
+}
   
   submitForm = () => {
     let {form} = this.state;
@@ -72,7 +75,9 @@ class AddPets extends Component {
       
       .then((res)=>{
         console.log(res)
+        this.setState({loaded:true})
         this.props.history.push('/profile')
+        
       })
     
     .catch((err)=>{
@@ -82,15 +87,9 @@ class AddPets extends Component {
   }
   
   changeForm = (e) => {
-    let {form,formData,file} = this.state;
+    let {form} = this.state;
     let name= e.target.name;
-    let userId=localStorage.getItem('LSidUser')
-    // formData.append('picture',file);
-    // formData.append(`${name}`,e.target.value)
-    // formData.append('UserID',userId)
     
-    form['UserID']=localStorage.getItem('LSidUser')
-    console.log('USERID=>',form['UserID'])
     form[name]=e.target.value;
     form[name]=e.target.value;
     console.log('formData---------------',form)
@@ -99,11 +98,13 @@ class AddPets extends Component {
   }
   
   componentWillMount()  {
-    let {vets} = this.state;
+    let {vets,loaded} = this.state;
     this.getVets()
       .then((response)=>{
       vets=response.data
-      this.setState({vets})
+        loaded=true;
+      console.log(loaded)
+      this.setState({vets,loaded})
       console.log('vets',response.data)
  
     })
@@ -116,15 +117,19 @@ class AddPets extends Component {
     let {vets,word} = this.state;
  
     return (
-
+      
       <Row>
         <Col m={8} offset="m2" className="z-depth-2">
           
           <Input s={4} label="Peso" name="weight" onChange={this.changeForm}/>
           <Input s={4} label="Especies" name="species" onChange={this.changeForm}/>
-          <Input s={4} label="Sexo" name="sex" onChange={this.changeForm}/>
+          <Input s={4} type="select" name="sex" defaultValue="2" label="Sexo" onChange={this.changeForm}>
+            <option value="2">Elige tu opcion</option>
+            <option value="hembra">Hembra</option>
+            <option value="macho">Macho</option>
+          </Input>
           
-          <Input s={4} label="Nombre" name="name" onChange={this.changeForm}/>
+          <Input s={4} required label="Nombre" name="name" required onChange={this.changeForm}/>
           <Input s={4} label="Apellido" name="lastName" onChange={this.changeForm}/>
           <Input s={4} label="Edad" name="age" onChange={this.changeForm}/>
           
@@ -132,7 +137,7 @@ class AddPets extends Component {
           <Input s={4} label="Color" name="color" onChange={this.changeForm}/>
           <Input s={4} label="Cumpleaños" name="birth" type="date" onChange={this.changeForm}/>
           
-          <Input s={4} label="Imagen" name="image" type="file" onChange={this.changeFormFile}/>
+          <Input s={4} required label="Foto" name="image" type="file"  onChange={this.changeFormFile}/>
           <Input s={4} label="Señas particulares" name="sign_part" onChange={this.changeForm}/>
           <Input s={4} label="Tatuaje" name="tatto" onChange={this.changeForm}/>
           
@@ -172,6 +177,7 @@ class AddPets extends Component {
           }
         </div>
       </Row>
+     
     );
   }
 }
