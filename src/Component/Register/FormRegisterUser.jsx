@@ -13,7 +13,7 @@ const FormRegisterUser = (props) => {
           <Input s={4} label="Materno" name="amaterno" onChange={props.onChange} />
           
           <Input s={4} placeholder="gua@gmail.com" onChange={props.onChange}  label="email" name="email"/>
-          <Input s={4}  placeholder="******" onChange={props.onChange} type="password" label="password" name="password"/>
+          <Input s={4}  placeholder="******" onChange={props.onChange} type="password" minlength="6" label="password" name="password"/>
           <Input s={4} label="Teléfono  " onChange={props.onChange} name="cellphone" />
           
           <Input s={4} label="C.P.  " onChange={props.onChange} name="zipcode"   />

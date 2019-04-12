@@ -1,5 +1,5 @@
 import React, {Component} from 'react';
-import FormRegisterUser from "./FormRegisterUser";
+
 import axios from 'axios'
 import FormRegisterVet from "./FormRegisterVet";
 class RegisterVet extends Component {
@@ -35,7 +35,7 @@ class RegisterVet extends Component {
       form[name]=e.target.value;
       if(name==='zipcode'&&form['zipcode'].length===5){
         console.log('cp',form['cp'])
-        axios.get(`http://sepomex.icalialabs.com/api/v1/zip_codes?cp=${form['zipcode']}`)
+        axios.get(`https://sepomex.icalialabs.com/api/v1/zip_codes?cp=${form['zipcode']}`)
           .then(res => {
             data=res.data.zip_codes;
             console.log(data);

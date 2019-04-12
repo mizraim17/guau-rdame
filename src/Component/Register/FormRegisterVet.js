@@ -14,7 +14,7 @@ const  FormRegisterVet = (props) => {
             <Input s={4} required label="Paterno" name="apaterno" onChange={props.onChange} />
             <Input s={4} label="Materno" name="amaterno" onChange={props.onChange} />
             <Input s={4} required type="email"  placeholder="gua@gmail.com" onChange={props.onChange}  label="Email" name="email"/>
-            <Input s={4} required    placeholder="****" onChange={props.onChange} type="password" label="Password" name="password"/>
+            <Input s={4} required  minlength="6"  placeholder="****" onChange={props.onChange} type="password" label="Password" name="password"/>
          
               <Input s={3} required label="Teléfono" onChange={props.onChange} name="cellphone" />
               <Input s={3} label="C.P.  " onChange={props.onChange} name="zipcode"   />
