@@ -1,5 +1,5 @@
 import React, {Component} from 'react'
-import {Link} from "react-router-dom";
+
 import {Tab, Tabs, Button, Col, Row} from 'react-materialize';
 import GenerateQR from "../QRcode/GenerateQR";
 import QRCode from "qrcode";
@@ -9,7 +9,7 @@ import Dates from "../Dates/Dates";
 import Tips from "../Tips/Tips";
 
 import copy from 'copy-to-clipboard'
-import Cycle from "../Cycle/Cycle";
+
 import '../../profile.css';
 import Faq from "../Faq/Faq";
 import Files from "../Files/Files";
@@ -17,8 +17,11 @@ import axios from "axios";
 import 'moment/locale/es'
 import Loader from 'react-loader'
 
+import IpDev from "../Ip";
+
 class Profile extends Component{
   state={
+    urlG:IpDev.url,
     info:[],loaded:false,
     stateForm:false,
     infoPet:{},infoQR:{},
@@ -52,13 +55,12 @@ class Profile extends Component{
     copy('This is some zim ')
   }
   
-
   
   infoVet=  () => {
    let {infoPet}= this.state
     console.log('infopet -peticion',infoPet.vet)
     
-     return(axios.get(`https://guaur-dame.herokuapp.com/api/user/vet/${infoPet.vet}`))
+     return(axios.get(`${this.state.urlG}/vet/${infoPet.vet}`))
   }
   
   getQR = () => {
@@ -74,7 +76,7 @@ class Profile extends Component{
     
     QRCode.toDataURL(`${infoQR2}`)
     .then(url => {
-      this.setState({imageUrl:url,loaded:true})
+      this.setState({imageUrl:url})
     })
     .catch(err => {
       console.error(err)
@@ -111,12 +113,12 @@ class Profile extends Component{
   infoProfile=  () => {
     let  idUser=  localStorage.getItem('LSidUser')
     console.log('idUser',idUser)
-    return(axios.get(`https://guaur-dame.herokuapp.com/api/user/${idUser}`))
+    return(axios.get(`${this.state.urlG}/user/${idUser}`))
   }
   
   infoPet= () => {
     let {infoOwner}=this.state;
-    return(axios.get(`https://guaur-dame.herokuapp.com/api/pet/${infoOwner['pet']['_id']}`))
+    return(axios.get(`${this.state.urlG}/pet/${infoOwner['pet']['_id']}`))
     
   }
   
@@ -131,8 +133,8 @@ class Profile extends Component{
     this.infoProfile()
       .then(res =>{
       console.log('res.data',res.data)
-      this.setState({infoOwner: res.data})
-      console.log('res.DATA.pet',res.data['pet'])
+      this.setState({infoOwner: res.data,loaded:true})
+      console.log('res.DATA.pet',res.data.imgPath)
       
       
       if(res.data['pet'])
@@ -164,9 +166,10 @@ class Profile extends Component{
   
   
   getTips = () => {
-    return( axios.get('https://guaur-dame.herokuapp.com/api/tips'))
+    return( axios.get(`${this.state.urlG}/tips`))
   }
   
+ 
   render() {
     
     let {infoVet, infoPet,imageUrl,infoOwner,infoFile,stateForm, tips } = this.state
@@ -228,9 +231,6 @@ class Profile extends Component{
                   imageQr={imageUrl}
                 />
               </div>
-            </Tab>
-            <Tab title="Ciclo Hembras" >
-              <Cycle/>
             </Tab>
             <Tab title="Peluqueria" >
               <Dates/>

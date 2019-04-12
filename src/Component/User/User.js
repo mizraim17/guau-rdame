@@ -3,14 +3,16 @@ import axios from 'axios'
 import {Button} from 'react-materialize'
 import {Link} from "react-router-dom";
 
+import IpDev from "../Ip";
+
 class User extends Component{
   state={
-    
+    urlG:IpDev.url,
     users:[]
   }
   componentDidMount() {
    
-    axios.get('https://guaur-dame.herokuapp.com/api/user')
+    axios.get(`${this.state.urlG}/user`)
       .then((result)=>{
         // console.log(result)
         this.setState({users:result.data})
@@ -52,6 +54,5 @@ class User extends Component{
     );
   }
 }
-
 
 export default User

@@ -2,10 +2,12 @@ import React, {Component} from 'react';
 import {Card, Col,  Row, Input, Icon, Tabs, Tab, Button} from 'react-materialize'
 import {Link, withRouter} from "react-router-dom";
 import axios from 'axios';
+import IpDev from "../Ip";
 
 class Login  extends  Component {
   state={
-    form:{}
+    form:{},
+    urlG:IpDev.url
   };
 
  
@@ -21,7 +23,7 @@ class Login  extends  Component {
     let {form} = this.state;
     console.log('form--getlogin',form)
 
-    axios.post(`https://guaur-dame.herokuapp.com/api/user/login`,form)
+    axios.post(`${this.state.urlG}/user/login`,form)
       .then((response)=>{
         console.log('res66666666666' ,response.data._id)
         if (response.data.role==='user'){
@@ -40,8 +42,8 @@ class Login  extends  Component {
     e.preventDefault()
     let {form} = this.state;
     console.log('form--getlogin',form)
-    
-    axios.post(`https://guaur-dame.herokuapp.com/api/user/login`,form)
+  
+    axios.post(`${this.state.urlG}/user/login`,form)
       .then((response)=>{
         console.log('res66666666666' ,response.data._id)
         if (response.data.role==='vet') {
@@ -53,6 +55,10 @@ class Login  extends  Component {
         window.Materialize.toast('usuario o contraseña incorrecta', 1500)
         console.log('error de login',err)
       })
+  }
+  
+  componentWillMount() {
+    localStorage.removeItem('LSidUser')
   }
   
   render() {

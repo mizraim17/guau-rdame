@@ -1,17 +1,17 @@
 import React,{Component} from 'react';
 import AddCaniTips from "./AddCaniTips";
 import  axios from 'axios';
+import {Redirect} from "react-router-dom";
+import IpDev from "../../Ip";
 
 class CaniTipsVet extends Component{
   state={
-    form:{
-      uno:false,
-      dos:false,
-      tres:false
-    },
+    urlG:IpDev.url,
+   form:{},
     chips:[
       "salud","alimentación"
-    ]
+    ],
+    redirect: false
     
   }
   
@@ -64,26 +64,54 @@ class CaniTipsVet extends Component{
   }
   
   
-  
   submitTip= (e) => {
     let {form} = this.state;
     e.preventDefault();
-    axios.post('https://guaur-dame.herokuapp.com/api/tips',form)
+    if(form['topic']){
+    
+    }
+    else{
+    form['topic']="general"
+    }
+    
+    
+    axios.post(`${this.state.urlG}/tips`,form)
       .then((res)=>{
-      // this.history.push('')
+       
+        window.Materialize.toast('CaniTip compartido exitosamente ', 1500)
+          form={}
+        this.setState({form,  redirect: true})
+        console.log('form',form)
+     
+       
+        console.log('bandera')
       })
       .catch((err)=>{
         console.log('err',err)
       })
+    
   }
+  
+  renderRedirect= ()=>{
+    
+    if (this.state.redirect) {
+      return <Redirect to='/profileVet' />
+    }
+
+  }
+  
   render() {
     return(
-      <AddCaniTips
-        data={this.state.chips}
-        changeForm={this.onChangeForm}
-       
-        submitTip={this.submitTip}
-      />
+      <div>
+        {this.renderRedirect()}
+        <AddCaniTips
+          data={this.state.chips}
+          changeForm={this.onChangeForm}
+    
+          submitTip={this.submitTip}
+        />
+      </div>
+    
     )
   }
   

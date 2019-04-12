@@ -1,11 +1,12 @@
 import React, {Component} from 'react'
 import axios from 'axios'
 import {Button, Card, CardTitle, Col, Icon, Row} from "react-materialize";
-
 import {Link} from "react-router-dom";
+import IpDev from "../../Ip";
 
 class Files extends Component{
   state={
+    urlG:IpDev.url,
     idpet:"",
     infofile:{}
   }

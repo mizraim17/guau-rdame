@@ -25,7 +25,7 @@ import {Link} from "react-router-dom";
               <Input s={4} label="Número  " onChange={props.onChange} name="no_street"   />
               <Input s={4} label="Colonia" onChange={props.onChange} name="community"   />
               <Row>
-                <Link to={'/profile'}>
+                <Link to={'/profileVet'}>
                   <Button s={12} m={12} className="orange"  waves='light'>Regresar</Button>
                 </Link>
                 <Button s={12} m={12}  waves='light'>Guaurdar</Button>

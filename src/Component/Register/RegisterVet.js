@@ -1,20 +1,25 @@
 import React, {Component} from 'react';
-
 import axios from 'axios'
 import FormRegisterVet from "./FormRegisterVet";
+
+import IpDev from "../Ip";
+
 class RegisterVet extends Component {
   state={
-    url:"https://guaur-dame.herokuapp.com/api/user",
-    form:{},comboCp:{},data:{}
+    form:{},comboCp:{},
+    data:{},
+     urlG:IpDev.url
+  
   }
   
   requestRegister = (e) => {
     e.preventDefault();
-    const {form,url} = this.state;
+    const {form} = this.state;
     form['role']='vet';
     console.log('form',form)
-    
-    axios.post(url,form)
+
+    axios.post(`${this.state.urlG}/user`,form)
+      
       .then((res)=>{
         window.Materialize.toast('Registro exitoso ', 2300)
         window.Materialize.toast('Ya puedes acceder en el Login', 3000)
@@ -26,6 +31,12 @@ class RegisterVet extends Component {
       })
   }
   
+  changeFormFile = (e) => {
+    let {file}=this.state
+    file=e.target.files[0];
+    console.log('change',file)
+    this.setState({file})
+  }
   
   onChangeForm = (e) => {
 
@@ -56,7 +67,7 @@ class RegisterVet extends Component {
       console.log('municipio=====>',comboCp)
     
     }
-  
+
   
   render() {
     let {comboCp,form}= this.state
@@ -66,6 +77,7 @@ class RegisterVet extends Component {
         <FormRegisterVet
           requestRegister={this.requestRegister}
           onChange={this.onChangeForm}
+          changeFile={this.changeFormFile}
           comboCp={comboCp}
           form={form}
         />

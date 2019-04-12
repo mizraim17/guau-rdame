@@ -13,7 +13,7 @@ import AddPets from "./Component/Pets/AddPets";
 import ProfileVet from "./Component/Vet/Profile/ProfileVet";
 import FormFiles from "./Component/Vet/Files/FormFiles";
 
-const Router = () => (
+const Router = ( ) => (
   <Switch>
     <Route exact path = "/" component={Home} />
     <Route exact path = "/profile" component={Profile} />

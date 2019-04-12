@@ -1,5 +1,5 @@
 import React from 'react';
-import {Card, CardTitle, Col, Row, Button, Chip} from "react-materialize";
+import {Card, CardTitle, Col, Row, Button} from "react-materialize";
 import {Link} from "react-router-dom";
 import Moment from 'react-moment'
 
@@ -34,10 +34,26 @@ const InfoProfile = (props) => {
           (Object.keys(props.infoPet).length !== 0)
           ?
           <div>
+            <Row >
+              <Col m={12} s={12} >
+                <img src={props.infoPet['imgPath']} className="circle" height="200" alt="photo_profile"/>
+              </Col>
+              <Col m={4}  >
+                <h4 className="txt-bold" >Nombre: <span  className="txt-normal" >{`${props.infoPet['name']} ${props.infoPet['lastName']}`}</span> </h4>
+              </Col>
+              <Col m={4} >
+                <h5 className="txt-bold" >Edad: <span  className="txt-normal" > {props.infoPet['age']}</span> </h5>
+              </Col>
+              <Col m={4} >
+                <h5 className="txt-bold" >Castración:   <span  className="txt-normal" >
+                  <Moment format="D MMMM YYYY">
+                    {props.infoPet['date_cut']}
+                  </Moment>
+                 </span> </h5>
+              </Col>
+            </Row>
              <Row >
-               <Col m={12} s={12} >
-                 <img src={props.infoPet['imgPath']} height="200" alt="photo_profile"/>
-               </Col>
+            
                <Col m={4} s={12} >
                  <h5 className="txt-bold" >Peso: <span className="txt-normal" >{props.infoPet['weight']}</span> </h5>
                </Col>
@@ -48,21 +64,7 @@ const InfoProfile = (props) => {
                  <h5 className="txt-bold" >Sexo: <span  className="txt-normal" >{props.infoPet['sex']}</span> </h5>
                </Col>
              </Row>
-             <Row >
-               <Col m={4}  >
-               <h4 className="txt-bold" >Nombre: <span  className="txt-normal" >{`${props.infoPet['name']} ${props.infoPet['lastName']}`}</span> </h4>
-               </Col>
-               <Col m={4} >
-               <h5 className="txt-bold" >Edad: <span  className="txt-normal" > {props.infoPet['age']}</span> </h5>
-               </Col>
-               <Col m={4} >
-                 <h5 className="txt-bold" >Castración:   <span  className="txt-normal" >
-                  <Moment format="D MMMM YYYY">
-                    {props.infoPet['date_cut']}
-                  </Moment>
-                 </span> </h5>
-               </Col>
-             </Row>
+             
              <Row >
              <Col m={4}  >
              <h5 className="txt-bold" >Raza: <span  className="txt-normal" >{props.infoPet['breed']}</span> </h5>
@@ -96,7 +98,7 @@ const InfoProfile = (props) => {
                     (Object.keys(props.infoVet).length !== 0)?
                    
                      <Card className="center-align z-depth-2 card-contacts gray-text"   >
-                       <img src="https://d2yoo3qu6vrk5d.cloudfront.net/images/20181113152329/lee_sandra_0252_xret-683x1024-482x320.jpg" className="circle align-center" width="50" alt=""/>
+                       <img src={props.infoVet['imgPath']} className="circle align-center" width="50" alt=""/>
                        <div>
                          <p className="nameUser ">{`${props.infoVet['name']} ${props.infoVet['apaterno']}`}</p>
                          <p className="nameUser ">   {`${props.infoVet['cellphone']}`} </p>

@@ -1,9 +1,10 @@
 import React, {Component} from 'react';
-import {Button, Col, Icon, Input, Row,Footer} from "react-materialize";
+import {Button, Col, Icon, Input, Row} from "react-materialize";
 import {Link} from "react-router-dom";
 import  axios from 'axios'
 import ListVet from "./ListVet";
 import Loader from 'react-loader'
+import IpDev from "../Ip";
 
 class AddPets extends Component {
   state={
@@ -11,12 +12,13 @@ class AddPets extends Component {
     formData:new FormData(),
     vets:{},
     word: "",
-    file:null
+    file:null,
+    urlG:IpDev.url
   }
   
   getVets = () => {
     
-    return(axios.get('https://guaur-dame.herokuapp.com/api/user'))
+    return(axios.get(`${this.state.urlG}/user`))
     
   }
   
@@ -39,7 +41,7 @@ class AddPets extends Component {
     if(file!==null)
     {
  
-      axios.post('https://guaur-dame.herokuapp.com/api/pet', formData, {
+      axios.post(`${this.state.urlG}/pet`, formData, {
       headers: {
         'Content-Type': 'multipart/form-data',
       },
@@ -71,7 +73,7 @@ class AddPets extends Component {
     
     let petId=JSON.parse(localStorage.getItem('LSinfoPet'))
     console.log('petId---------------',petId._id)
-    axios.put(`https://guaur-dame.herokuapp.com/api/pet/${petId._id}`, form)
+    axios.put(`${this.state.urlG}/pet/${petId._id}`, form)
       
       .then((res)=>{
         console.log(res)
@@ -129,7 +131,7 @@ class AddPets extends Component {
             <option value="macho">Macho</option>
           </Input>
           
-          <Input s={4} required label="Nombre" name="name" required onChange={this.changeForm}/>
+          <Input s={4} required label="Nombre" name="name"  onChange={this.changeForm}/>
           <Input s={4} label="Apellido" name="lastName" onChange={this.changeForm}/>
           <Input s={4} label="Edad" name="age" onChange={this.changeForm}/>
           

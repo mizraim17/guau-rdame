@@ -2,10 +2,14 @@ import React, {Component} from 'react';
 import FormRegisterUser from "./FormRegisterUser";
 import axios from 'axios'
 import {withRouter} from 'react-router-dom';
+
+import IpDev from "../Ip";
+
 class RegisterUser extends Component {
  state={
    form:{},
    formData:new FormData(),
+   urlG:IpDev.url
  }
   
   submitImage = ()=> {
@@ -13,7 +17,7 @@ class RegisterUser extends Component {
     formData.append('picture',file);
     let idUser=localStorage.getItem('LSidUser')
     console.log('id user = ',idUser)
-    axios.put(`https://guaur-dame.herokuapp.com/api/user/${idUser}`, formData, {
+    axios.put(`${this.state.urlG}/user/${idUser}`, formData, {
       headers: {
         'Content-Type': 'multipart/form-data',
       },
@@ -33,7 +37,7 @@ class RegisterUser extends Component {
    e.preventDefault();
    let {form} = this.state;
     form['role']='user';
-    axios.post('https://guaur-dame.herokuapp.com/api/user',form)
+    axios.post(`${this.state.urlG}/user`,form)
       
       .then((res)=>{
         console.log('res',res.data)
@@ -42,13 +46,13 @@ class RegisterUser extends Component {
           console.log('entroooooooooooooo')
           this.submitImage()
         }
-        // this.props.history.push('/user')
+        this.props.history.push('/profile')
       })
       .catch((err)=>{
         console.log(err)
         return;
       })
-    this.props.history.push('/profile')
+   
   }
   
   changeFormFile = (e) => {
@@ -74,7 +78,7 @@ class RegisterUser extends Component {
 
     return(
       <div>
-        <h3>Registro de Usuarios</h3>
+        <h3>Registro de Usuario</h3>
         <FormRegisterUser
           requestRegister={this.requestRegister}
           onChange={this.onChangeFormUser}

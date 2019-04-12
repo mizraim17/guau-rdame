@@ -1,5 +1,5 @@
 import React, {Component} from 'react';
-import {Button, Card, Chip, Col, Row, Tab, Tabs} from "react-materialize";
+import {Button,  Col, Row, Tab, Tabs} from "react-materialize";
 import {Link} from "react-router-dom";
 import Patients from "../Patients/Patients";
 import CaniTipsVet from "../CaniTips/CaniTipsVet";
@@ -7,23 +7,27 @@ import axios from "axios";
 import InfoProfileVet from "./infoProfileVet";
 import Moment from 'react-moment'
 import Files from "../Files/Files";
+import IpDev from "../../Ip";
+
+
 
 class ProfileVet extends Component{
   state={
     infoProVet:{},
     infoPatients:{},
     clickPatient:true,
-    idPatient:""
+    idPatient:"",
+    urlG:IpDev.url
   }
   getInfoProfile = () =>{
     let  idVet=  localStorage.getItem('LSidUserVet')
     console.log('idUserVet',idVet)
-    return(axios.get(`https://guaur-dame.herokuapp.com/api/user/${idVet}`))
+    return(axios.get(`${this.state.urlG}/user/${idVet}`))
   }
   
   getPatient = () => {
     let  idVet=  localStorage.getItem('LSidUserVet')
-    return(axios.get(`https://guaur-dame.herokuapp.com/api/pet/patients/${idVet}`))
+    return(axios.get(`${this.state.urlG}/pet/patients/${idVet}`))
   }
   
   componentWillMount() {
@@ -58,7 +62,7 @@ class ProfileVet extends Component{
   render() {
     let {infoProVet,infoPatients,clickPatient,idPatient} =this.state
     return(
-      <>
+      <> {console.log('**************************************',this.state.url)}
         <Row>
           <Link to='/'>
             <Button floating large fabClickOnly className='red' waves='yellow' icon='directions_run' />
@@ -77,7 +81,7 @@ class ProfileVet extends Component{
                   infoVet={infoProVet}
                 />
               </Tab>
-              <Tab title="Pacientes" active>
+              <Tab title="Pacientes" >
                 {
                   (Object.keys(infoPatients).length !== 0)
                   ?
@@ -98,7 +102,7 @@ class ProfileVet extends Component{
               <Tab title="Expediente" >
                 <CaniTipsVet/>
               </Tab>
-              <Tab title="Cani-Tips">
+              <Tab title="Cani-Tips" active>
                 <CaniTipsVet/>
               </Tab>
               <Tab title=" Citas">

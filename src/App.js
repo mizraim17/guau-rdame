@@ -1,15 +1,18 @@
 import React, { Component } from 'react';
 
 import './App.css';
-
 import Router from "./Router";
 import {Col, Footer} from "react-materialize";
 
+
 class App extends Component {
+ 
   render() {
     return (
       <div className="App">
-          <Router/>
+          <Router
+          
+          />
         <Footer
           copyrights="Mizraim Martínez @2019"
           className="gray-text"

@@ -13,7 +13,7 @@ const FormRegisterUser = (props) => {
           <Input s={4} label="Materno" name="amaterno" onChange={props.onChange} />
           
           <Input s={4} placeholder="gua@gmail.com" onChange={props.onChange}  label="email" name="email"/>
-          <Input s={4}  placeholder="******" onChange={props.onChange} type="password" minlength="6" label="password" name="password"/>
+          <Input s={4} required placeholder="******" onChange={props.onChange} type="password" minLength="6" label="password" name="password"/>
           <Input s={4} label="Teléfono  " onChange={props.onChange} name="cellphone" />
           
           <Input s={4} label="C.P.  " onChange={props.onChange} name="zipcode"   />
@@ -23,7 +23,7 @@ const FormRegisterUser = (props) => {
           <Input s={4} label="Calle  " onChange={props.onChange} name="street"   />
           <Input s={4} label="Número  " onChange={props.onChange} name="no_street"   />
           <Input s={4} label="Colonia" onChange={props.onChange} name="community"   />
-          <Input s={4} required label="Foto" name="image" type="file"  onChange={props.changeFile}/>
+          <Input s={4} label="Foto" name="image" type="file"  onChange={props.changeFile}/>
   
           <Row>
             <Link to={'/'}>
