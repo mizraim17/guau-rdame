@@ -6,7 +6,7 @@ const Page404 = () => {
       <Row>
         <h1>Estas perdido ?</h1>
         <h4>No deberías estar aquí</h4>
-          <img className=" "   alt="lose" width="250" src="./images/dog-lose.jpg"/>
+          <img className=" "   alt="lose" width="250" src={require("./images/dog-lose.jpg")}/>
           <Icon large>
             arrow_forward
           </Icon>
