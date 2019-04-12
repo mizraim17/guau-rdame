@@ -229,13 +229,13 @@ class Profile extends Component{
                 />
               </div>
             </Tab>
-            <Tab title="Ciclo Hembras " >
+            <Tab title="Ciclo Hembras" >
               <Cycle/>
             </Tab>
-            <Tab title="  Peluqueria " >
+            <Tab title="Peluqueria" >
               <Dates/>
             </Tab>
-            <Tab title="Faq " >
+            <Tab title="Faq" >
               <Faq/>
             </Tab>
           </Tabs>
