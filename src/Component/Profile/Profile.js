@@ -58,7 +58,7 @@ class Profile extends Component{
    let {infoPet}= this.state
     console.log('infopet -peticion',infoPet.vet)
     
-     return(axios.get(`http://localhost:3005/api/user/vet/${infoPet.vet}`))
+     return(axios.get(`https://guaur-dame.herokuapp.com/api/user/vet/${infoPet.vet}`))
   }
   
   getQR = () => {
@@ -111,12 +111,12 @@ class Profile extends Component{
   infoProfile=  () => {
     let  idUser=  localStorage.getItem('LSidUser')
     console.log('idUser',idUser)
-    return(axios.get(`http://localhost:3005/api/user/${idUser}`))
+    return(axios.get(`https://guaur-dame.herokuapp.com/api/user/${idUser}`))
   }
   
   infoPet= () => {
     let {infoOwner}=this.state;
-    return(axios.get(`http://localhost:3005/api/pet/${infoOwner['pet']['_id']}`))
+    return(axios.get(`https://guaur-dame.herokuapp.com/api/pet/${infoOwner['pet']['_id']}`))
     
   }
   
@@ -164,7 +164,7 @@ class Profile extends Component{
   
   
   getTips = () => {
-    return( axios.get('http://localhost:3005/api/tips'))
+    return( axios.get('https://guaur-dame.herokuapp.com/api/tips'))
   }
   
   render() {

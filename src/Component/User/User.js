@@ -10,7 +10,7 @@ class User extends Component{
   }
   componentDidMount() {
    
-    axios.get('http://localhost:3005/api/user')
+    axios.get('https://guaur-dame.herokuapp.com/api/user')
       .then((result)=>{
         // console.log(result)
         this.setState({users:result.data})

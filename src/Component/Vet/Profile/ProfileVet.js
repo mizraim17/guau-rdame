@@ -18,12 +18,12 @@ class ProfileVet extends Component{
   getInfoProfile = () =>{
     let  idVet=  localStorage.getItem('LSidUserVet')
     console.log('idUserVet',idVet)
-    return(axios.get(`http://localhost:3005/api/user/${idVet}`))
+    return(axios.get(`https://guaur-dame.herokuapp.com/api/user/${idVet}`))
   }
   
   getPatient = () => {
     let  idVet=  localStorage.getItem('LSidUserVet')
-    return(axios.get(`http://localhost:3005/api/pet/patients/${idVet}`))
+    return(axios.get(`https://guaur-dame.herokuapp.com/api/pet/patients/${idVet}`))
   }
   
   componentWillMount() {

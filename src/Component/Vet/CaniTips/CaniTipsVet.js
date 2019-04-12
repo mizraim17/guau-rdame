@@ -68,7 +68,7 @@ class CaniTipsVet extends Component{
   submitTip= (e) => {
     let {form} = this.state;
     e.preventDefault();
-    axios.post('http://localhost:3005/api/tips',form)
+    axios.post('https://guaur-dame.herokuapp.com/api/tips',form)
       .then((res)=>{
       // this.history.push('')
       })

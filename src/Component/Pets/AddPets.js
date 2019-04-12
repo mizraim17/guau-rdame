@@ -16,7 +16,7 @@ class AddPets extends Component {
   
   getVets = () => {
     
-    return(axios.get('http://localhost:3005/api/user'))
+    return(axios.get('https://guaur-dame.herokuapp.com/api/user'))
     
   }
   
@@ -39,7 +39,7 @@ class AddPets extends Component {
     if(file!==null)
     {
  
-      axios.post('http://localhost:3005/api/pet', formData, {
+      axios.post('https://guaur-dame.herokuapp.com/api/pet', formData, {
       headers: {
         'Content-Type': 'multipart/form-data',
       },
@@ -71,7 +71,7 @@ class AddPets extends Component {
     
     let petId=JSON.parse(localStorage.getItem('LSinfoPet'))
     console.log('petId---------------',petId._id)
-    axios.put(`http://localhost:3005/api/pet/${petId._id}`, form)
+    axios.put(`https://guaur-dame.herokuapp.com/api/pet/${petId._id}`, form)
       
       .then((res)=>{
         console.log(res)

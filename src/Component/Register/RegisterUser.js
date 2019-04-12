@@ -13,7 +13,7 @@ class RegisterUser extends Component {
     formData.append('picture',file);
     let idUser=localStorage.getItem('LSidUser')
     console.log('id user = ',idUser)
-    axios.put(`http://localhost:3005/api/user/${idUser}`, formData, {
+    axios.put(`https://guaur-dame.herokuapp.com/api/user/${idUser}`, formData, {
       headers: {
         'Content-Type': 'multipart/form-data',
       },
@@ -33,7 +33,7 @@ class RegisterUser extends Component {
    e.preventDefault();
    let {form} = this.state;
     form['role']='user';
-    axios.post('http://localhost:3005/api/user',form)
+    axios.post('https://guaur-dame.herokuapp.com/api/user',form)
       
       .then((res)=>{
         console.log('res',res.data)
