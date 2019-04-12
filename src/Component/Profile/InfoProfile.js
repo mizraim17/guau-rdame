@@ -110,7 +110,7 @@ const InfoProfile = (props) => {
           </div>
           :<Row>
               <Col m={6}>
-                <img className=" "   alt="lose" width="200" src="./images/no_pet.jpghttps://res.cloudinary.com/dultkt54v/image/upload/v1555033388/images_guaurdame/no_pet.jpg"/>
+                <img className=" "   alt="lose" width="200" src="https://res.cloudinary.com/dultkt54v/image/upload/v1555033388/images_guaurdame/no_pet.jpg"/>
   
               </Col>
                 <Col m={6}>
