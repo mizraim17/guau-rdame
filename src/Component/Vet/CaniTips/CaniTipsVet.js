@@ -16,8 +16,7 @@ class CaniTipsVet extends Component{
   }
   
   onChangeForm = (e) =>{
-    // e.preventDefault()
-    console.log('checkes======',e.target.checked )
+   
     let {form}= this.state;
     let name=e.target.name;
     form[name]= e.target.value;
@@ -49,7 +48,7 @@ class CaniTipsVet extends Component{
       
       // form[name]=!form[name]
       this.setState({form})
-      console.log('si',form)
+      
     }else
     if(e.target.type ==="checkbox"&&e.target.checked===false ){
       let {form}= this.state;
@@ -57,7 +56,7 @@ class CaniTipsVet extends Component{
       form[name]= e.target.checked;
     
       this.setState({form})
-      console.log('no',form)
+      
     }
     this.setState({form})
    
@@ -81,10 +80,7 @@ class CaniTipsVet extends Component{
         window.Materialize.toast('CaniTip compartido exitosamente ', 1500)
           form={}
         this.setState({form,  redirect: true})
-        console.log('form',form)
      
-       
-        console.log('bandera')
       })
       .catch((err)=>{
         console.log('err',err)

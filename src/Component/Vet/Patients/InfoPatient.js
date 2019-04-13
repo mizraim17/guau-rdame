@@ -4,13 +4,8 @@ import {Link} from "react-router-dom";
 import InfoProfileVet from "../Profile/ProfileVet";
 
 class InfoPatient extends Component {
-  state= {
   
-  }
-  
-  infoPatient = () =>{
-  
-  }
+ 
   
   render() {
     return(

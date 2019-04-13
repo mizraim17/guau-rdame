@@ -6,7 +6,7 @@ import Moment from 'react-moment'
 const History =(props)=> {
  
     return(
-      <>{console.log('props.historyPat',props.historyPat)}
+      <>
         {
           props.historyPat?
             <Row>
@@ -147,7 +147,7 @@ const History =(props)=> {
               <img className="materialboxed center-align"  alt="lose" width="650" src=" http://www.uco.es/organiza/departamentos/anatomia-y-anat-patologica/peques/imagenes1_archivos/image009.jpg"/>
             </Row>
             :<>
-              <p>a</p>
+              <p>Aún no tienes historial</p>
               <Link to='/formFiles'>
                 <Button floating large fabClickOnly className='green' waves='yellow' icon='pets' />
               </Link>

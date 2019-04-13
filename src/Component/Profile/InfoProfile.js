@@ -28,10 +28,10 @@ const InfoProfile = (props) => {
          
           </div>
         ]}>
+      
        
         {
-          //console.log(props.infoPet)
-          (Object.keys(props.infoPet).length !== 0)
+           (Object.keys(props.infoPet).length !== 0)
           ?
           <div>
             <Row >
@@ -93,7 +93,7 @@ const InfoProfile = (props) => {
                <div className="divider">
                  <hr/>
                </div>
-               <Col m={3}>{console.log( 'mmmmmmmmmmmmmm',props.infoVet['imgPath'])}
+               <Col m={3}>{console.log(props.infoVet)}
                   {
                     (Object.keys(props.infoVet).length !== 0)?
                    
@@ -112,7 +112,7 @@ const InfoProfile = (props) => {
           </div>
           :<Row>
               <Col m={6}>
-                <img className=" "  className="circle align-center"  alt="lose" width="200" src="https://res.cloudinary.com/dultkt54v/image/upload/v1555033388/images_guaurdame/no_pet.jpg"/>
+                <img    className="circle align-center"  alt="lose" width="200" src="https://res.cloudinary.com/dultkt54v/image/upload/v1555033388/images_guaurdame/no_pet.jpg"/>
   
               </Col>
                 <Col m={6}>
@@ -128,7 +128,7 @@ const InfoProfile = (props) => {
         <div className="divider"> </div>
          <p className="titulo px">Información del dueño</p>
         <Row >
-          <Col m={12}  >{console.log('imgPath',props.owner.imgPath)}
+          <Col m={12}  >
             {
               props.owner['imgPath']
                 ? <img src={props.owner['imgPath']} className="circle align-center" width="350" alt=""/>

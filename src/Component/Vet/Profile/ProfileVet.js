@@ -1,6 +1,6 @@
 import React, {Component} from 'react';
 import {Button,  Col, Row, Tab, Tabs} from "react-materialize";
-import {Link} from "react-router-dom";
+import { Redirect} from "react-router-dom";
 import Patients from "../Patients/Patients";
 import CaniTipsVet from "../CaniTips/CaniTipsVet";
 import axios from "axios";
@@ -19,11 +19,12 @@ class ProfileVet extends Component{
     clickPatient:true,
     idPatient:"",
     urlG:IpDev.url,
-    historyPat:{}
+    historyPat:null,
+    redirect: false
   }
   getInfoProfile = () =>{
     let  idVet=  localStorage.getItem('LSidUserVet')
-    console.log('idUserVet',idVet)
+    
     return(axios.get(`${this.state.urlG}/user/${idVet}`))
   }
   
@@ -32,11 +33,26 @@ class ProfileVet extends Component{
     return(axios.get(`${this.state.urlG}/pet/patients/${idVet}`))
   }
   
+  setRed=()=>{
+    this.setState({ redirect: true,clickPatient:true})
+    this.renderRedirect()
+  }
+  
+  renderRedirect= ()=>{
+  
+    
+    if (this.state.redirect) {
+ 
+      return <Redirect to='/profileVet' />
+    }
+    
+  }
+  
   componentWillMount() {
     this.getInfoProfile()
     .then((response)=>{
       this.setState({infoProVet:response.data})
-      console.log('infoProVet-->',this.state.infoProVet)
+      
     })
     .catch((error)=>{
       console.log(error)
@@ -46,9 +62,7 @@ class ProfileVet extends Component{
     .then((response)=>{
      
       this.setState({infoPatients:response.data})
-      console.log('****************',this.state.infoPatients)
-      
-      console.log('infoPatiet-->',response.data)
+    
     })
     .catch((error)=>{
       console.log(error)
@@ -67,16 +81,17 @@ class ProfileVet extends Component{
    
     let {clickPatient,idPatient,infoPatients} = this.state;
     idPatient=e.target.id
-    console.log('e.target.id----e.target.id',infoPatients)
+    
     localStorage.setItem('idPatient',infoPatients[idPatient]['_id'])
     clickPatient= !clickPatient
         this.setState({clickPatient,idPatient})
-    
+  
+   
     if( infoPatients[idPatient].files) {
  
       this.getHistoryPat()
         .then((response) => {
-          console.log('response history', response.data.files)
+          
           this.setState({historyPat: response.data.files})
         })
         .catch((err) => {
@@ -86,20 +101,25 @@ class ProfileVet extends Component{
     
   }
   
-
+  logOut= () => {
+    localStorage.removeItem('LSidUserVet')
+    localStorage.removeItem('idPatient')
+    this.props.history.push('/')
+  }
+  
   
   render() {
     let {infoProVet,infoPatients,clickPatient,idPatient,historyPat} =this.state
     
     return(
-      <>
+      <> {this.renderRedirect()}
         <Row>
-          <Link to='/'>
-            <Button floating large fabClickOnly className='red' waves='yellow' icon='directions_run' />
-          </Link>
+      
+            <Button onClick={this.logOut} floating large fabClickOnly className='red' waves='yellow' icon='directions_run' />
+        
          {
            !clickPatient
-           ?<Button onClick={this.getInfoPatient} icon='arrow_back' > Regresar</Button>
+           ?<Button onClick={this.setRed} icon='arrow_back' > Regresar</Button>
              :""
          }
           <Col s={12} m={10} offset="m1">
@@ -108,6 +128,7 @@ class ProfileVet extends Component{
             <Tabs className='tab-demo z-depth-1 '>
               <Tab title="Perfil ">
                 <InfoProfileVet
+                  
                   infoVet={infoProVet}
                 />
               </Tab>
@@ -129,21 +150,16 @@ class ProfileVet extends Component{
                   : ""
                 }
               </Tab>
-              <Tab title="Expediente" >
-                <CaniTipsVet/>
-              </Tab>
               <Tab title="Cani-Tips" >
                 <CaniTipsVet/>
               </Tab>
-              <Tab title=" Citas">
-                <CaniTipsVet/>
-              </Tab>
+              
               <Tab title="Faq ">
               </Tab>
             </Tabs>
             :
             <Tabs className='tab-demo z-depth-1 '>
-              <Tab title="Perfil "  > {console.log('idPatient=',idPatient)}
+              <Tab title="Perfil "  >
                 {
                   (Object.keys(infoPatients).length !== 0)?
                   <>

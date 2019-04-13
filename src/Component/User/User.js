@@ -14,7 +14,7 @@ class User extends Component{
    
     axios.get(`${this.state.urlG}/user`)
       .then((result)=>{
-        // console.log(result)
+        
         this.setState({users:result.data})
       })
       .catch((err)=>{

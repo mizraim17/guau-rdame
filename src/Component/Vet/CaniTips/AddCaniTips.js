@@ -7,7 +7,7 @@ const AddCaniTips= (props) => {
   return(
  
        
-          <Col m={8} lassName="z-depth-2 pt"  offset="m2">
+          <Col m={8} className="z-depth-2 pt"  offset="m2">
             <form onSubmit={props.submitTip} >
             <Input  s={6} label="Título del tip" name="title" required onChange={props.changeForm}/>
               

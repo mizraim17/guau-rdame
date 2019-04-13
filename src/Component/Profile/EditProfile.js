@@ -15,7 +15,7 @@ class EditProfile extends Component{
   
     infoProfile=  () => {
       let  idUser=  localStorage.getItem('LSidUser')
-      console.log('idUser',idUser)
+      
       return(axios.get(`${this.state.urlG}/user/${idUser}`))
     }
     
@@ -66,7 +66,7 @@ class EditProfile extends Component{
     render() {
       let {infoOwner} = this.state
       return(
-        <div>{console.log(infoOwner)}
+        <div>
           <Row>
             <Col offset="m1" className="white mx">
               <form onSubmit={this.submitForm}>

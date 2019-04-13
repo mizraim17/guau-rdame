@@ -5,7 +5,7 @@ import GenerateQR from "../QRcode/GenerateQR";
 import QRCode from "qrcode";
 import InfoProfile from "./InfoProfile";
 import RecordVac from "../RecordVac/RecordVac";
-import Dates from "../Dates/Dates";
+
 import Tips from "../Tips/Tips";
 
 import copy from 'copy-to-clipboard'
@@ -58,15 +58,15 @@ class Profile extends Component{
   
   infoVet=  () => {
    let {infoPet}= this.state
-    console.log('infopet -peticion',infoPet.vet)
     
-     return(axios.get(`${this.state.urlG}/vet/${infoPet.vet}`))
+    
+     return(axios.get(`${this.state.urlG}/user/vet/${infoPet.vet}`))
   }
   
   getQR = () => {
 
     let { infoOwner,infoQR,infoQR2} =this.state;
-    console.log('------',infoOwner)
+    
     let Nombre_Propietario=`${infoOwner['name']} ${infoOwner['lastname']}`,
     Telefono=infoOwner['cellphone']
     infoQR=`Nombre Propietario: ${Nombre_Propietario},Telefóno: ${Telefono}`
@@ -92,16 +92,16 @@ class Profile extends Component{
   changeForm= () => {
     let {stateForm} = this.state;
     stateForm=!stateForm;
-    console.log('stateForm',stateForm)
+   
     this.setState({stateForm})
   }
   
   onChangeFormPet = (e) => {
     let {infoPet} =this.state;
-    console.log("campos",infoPet)
+    
     let field=e.target.name;
     infoPet[field]= e.target.value;
-    console.log("campos",infoPet)
+    
     this.setState({infoPet});
   
   }
@@ -112,7 +112,7 @@ class Profile extends Component{
   
   infoProfile=  () => {
     let  idUser=  localStorage.getItem('LSidUser')
-    console.log('idUser',idUser)
+    
     return(axios.get(`${this.state.urlG}/user/${idUser}`))
   }
   
@@ -132,21 +132,21 @@ class Profile extends Component{
     
     this.infoProfile()
       .then(res =>{
-      console.log('res.data',res.data)
+     
       this.setState({infoOwner: res.data,loaded:true})
-      console.log('res.DATA.pet',res.data.imgPath)
+     
       
       
       if(res.data['pet'])
       {
-        console.log('entro a la super condicion ')
+      
         this.infoPet()
         .then(res=>{
           this.setState({infoPet: res.data})
-          console.log('infopetttt',res.data)
+         
           this.infoVet()
             .then((response)=>{
-              console.log('INFOVET====',response.data)
+         
               this.setState({infoVet:response.data})
             })
             .catch((error)=>{
@@ -176,7 +176,7 @@ class Profile extends Component{
     
     return(
       <Loader loaded={this.state.loaded}>
-        <Row>{console.log('infoOwner--------render',Object.keys(infoOwner), Object.values(infoOwner))}
+        <Row>
         <Button onClick={this.logOut} placeholder="Salir" floating large fabClickOnly className='red' waves='yellow' icon='directions_run' />
         <Col s={12} m={10} offset="m1">
           <Tabs className='tab-demo z-depth-1'>

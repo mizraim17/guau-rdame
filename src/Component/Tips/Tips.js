@@ -12,7 +12,7 @@ const Tips = (props) =>{
               {props.tip.created_at}
             </Moment>
             {
-              // console.log('info props tip',props.tip)
+            
             }
           </CardTitle>
         }

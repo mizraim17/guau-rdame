@@ -4,7 +4,7 @@ import { Card, Col} from "react-materialize";
 
 const Patients = (props ) => {
   return(
-   <>{console.log('propssssssssssssssss',props)}
+   <>
 {     (Object.keys(props.el).length !== 0)
      ?
   <Col m={3} >

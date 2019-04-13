@@ -3,7 +3,7 @@ import {Button, Col, Icon, Input, Row} from "react-materialize";
 import {Link} from "react-router-dom";
 import  axios from 'axios'
 import ListVet from "./ListVet";
-import Loader from 'react-loader'
+
 import IpDev from "../Ip";
 
 class AddPets extends Component {
@@ -37,7 +37,7 @@ class AddPets extends Component {
     let {file,formData} = this.state;
     formData.append('picture',file);
     formData.append('UserID',localStorage.getItem('LSidUser'));
-    console.log('---------------',file)
+    
     if(file!==null)
     {
  
@@ -47,11 +47,11 @@ class AddPets extends Component {
       },
       })
       .then((res)=>{
-        console.log('respet',res.data)
+        
         localStorage.setItem('LSinfoPet',JSON.stringify(res.data))
         
         if(res.data!==0){
-          console.log('entroooooooooooooo')
+           
            this.submitForm()
         }
       })
@@ -105,9 +105,9 @@ class AddPets extends Component {
       .then((response)=>{
       vets=response.data
         loaded=true;
-      console.log(loaded)
+       
       this.setState({vets,loaded})
-      console.log('vets',response.data)
+      
  
     })
       .catch((err)=>{

@@ -1,6 +1,6 @@
 import React, {Component} from 'react'
 import axios from 'axios'
-import {Button, Card, CardTitle, Col, Icon, Input, Row} from "react-materialize";
+import {Button , Col,  Input, Row} from "react-materialize";
 import {Link} from "react-router-dom";
 import IpDev from "../../Ip";
 
@@ -16,7 +16,7 @@ class Files extends Component{
     let {form} =this.state;    
     let field=e.target.name;
     form[field]= e.target.value; 
-    console.log('form',form)
+ 
     this.setState({  form});
   }
   
@@ -36,13 +36,14 @@ class Files extends Component{
     let {form} = this.state
     axios.post(`${this.state.urlG}/file`,form)
       .then((response)=>{
-        console.log('ggggggggggggggggggg',response.data._id)
-        this.setState({idFile:response.data._id})
+    
+        this.setState({idFile:response.data._id,redirect: true})
           this.saveMaskot()
             .then((response)=>{
               console.log(response.data)
             })
             .catch((error)=>{
+              
               console.log('error',error)
             })
       })

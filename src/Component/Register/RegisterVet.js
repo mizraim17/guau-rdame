@@ -6,7 +6,7 @@ import IpDev from "../Ip";
 
 class RegisterVet extends Component {
   state={
-    form:{},comboCp:{},
+    form:{},
     data:{},
      urlG:IpDev.url
   
@@ -16,7 +16,7 @@ class RegisterVet extends Component {
     e.preventDefault();
     const {form} = this.state;
     form['role']='vet';
-    console.log('form',form)
+   
 
     axios.post(`${this.state.urlG}/user`,form)
       
@@ -34,37 +34,17 @@ class RegisterVet extends Component {
   changeFormFile = (e) => {
     let {file}=this.state
     file=e.target.files[0];
-    console.log('change',file)
+    
     this.setState({file})
   }
   
   onChangeForm = (e) => {
 
-      let {form,data,comboCp} = this.state;
-      console.log('form---------->',form)
+      let {form} = this.state;
+   
       let name= e.target.name;
       form[name]=e.target.value;
-      if(name==='zipcode'&&form['zipcode'].length===5){
-        console.log('cp',form['cp'])
-        axios.get(`http://sepomex.icalialabs.com/api/v1/zip_codes?cp=${form['zipcode']}`)
-          .then(res => {
-            data=res.data.zip_codes;
-            console.log(data);
-            comboCp=data;
-            form['state']=comboCp[0]['d_estado'];
-            form['city']=comboCp[0]['d_mnpio'];
-            console.log(comboCp)
-          
-            this.setState({comboCp,form})
-          })
-        
-          .catch(err => {
-          
-            console.log(err);
-          })
-      
-      }
-      console.log('municipio=====>',comboCp)
+     
     
     }
 

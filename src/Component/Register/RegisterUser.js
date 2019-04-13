@@ -16,7 +16,7 @@ class RegisterUser extends Component {
    let {file,formData}=this.state;
     formData.append('picture',file);
     let idUser=localStorage.getItem('LSidUser')
-    console.log('id user = ',idUser)
+    
     axios.put(`${this.state.urlG}/user/${idUser}`, formData, {
       headers: {
         'Content-Type': 'multipart/form-data',
@@ -24,7 +24,7 @@ class RegisterUser extends Component {
       
     })
       .then((response)=>{
-        console.log('guardo image',response)
+      
       })
     
       .catch((err)=>{
@@ -41,10 +41,10 @@ class RegisterUser extends Component {
     axios.post(`${this.state.urlG}/user`,form)
       
       .then((res)=>{
-        console.log('res',res.data)
+     
         localStorage.setItem('LSidUser',res.data['_id'])
         if(res.data!==0){
-          console.log('entroooooooooooooo')
+          
           this.submitImage()
         }
         this.props.history.push('/profile')
@@ -59,7 +59,7 @@ class RegisterUser extends Component {
   changeFormFile = (e) => {
     let {file}=this.state
     file=e.target.files[0];
-    console.log('change',file)
+    
     this.setState({file})
   }
   
