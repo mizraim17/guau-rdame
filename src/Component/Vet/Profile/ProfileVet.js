@@ -64,15 +64,16 @@ class ProfileVet extends Component{
   }
   
   getInfoPatient = (e) => {
-    console.log('e.target.id----e.target.id',e.target.id)
+   
     let {clickPatient,idPatient,infoPatients} = this.state;
     idPatient=e.target.id
+    console.log('e.target.id----e.target.id',infoPatients)
     localStorage.setItem('idPatient',infoPatients[idPatient]['_id'])
     clickPatient= !clickPatient
         this.setState({clickPatient,idPatient})
     
     if( infoPatients[idPatient].files) {
-      alert('getHistoryPat')
+ 
       this.getHistoryPat()
         .then((response) => {
           console.log('response history', response.data.files)
@@ -89,10 +90,10 @@ class ProfileVet extends Component{
   
   render() {
     let {infoProVet,infoPatients,clickPatient,idPatient,historyPat} =this.state
-    let x=""
+    
     return(
       <>
-        <Row>{console.log('-------------',x=localStorage.getItem('idPatient'))}
+        <Row>
           <Link to='/'>
             <Button floating large fabClickOnly className='red' waves='yellow' icon='directions_run' />
           </Link>

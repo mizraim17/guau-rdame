@@ -207,9 +207,7 @@ class Profile extends Component{
                })}
               </div>
             </Tab>
-            <Tab title="  Citas">Citas
-              <Dates/>
-            </Tab>
+            
             <Tab title="  CaniTips"  >
               {
                 (Object.keys(tips).length !== 0)
@@ -232,9 +230,7 @@ class Profile extends Component{
                 />
               </div>
             </Tab>
-            <Tab title="Peluqueria" >
-              <Dates/>
-            </Tab>
+           
             <Tab title="Faq" >
               <Faq/>
             </Tab>

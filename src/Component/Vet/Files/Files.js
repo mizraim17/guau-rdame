@@ -24,11 +24,10 @@ class Files extends Component{
    let {idFile}=this.state;
     let idPatient =localStorage.getItem('idPatient')
     let idNFile={}
-    idNFile['file']= idFile
-    console.log('idPatient================',idPatient)
-    console.log('idFile================',idNFile)
+    idNFile['files']= idFile
     
-    return (axios.put(`${this.state.urlG}/pet/file/${idPatient}`,idNFile))
+    
+    return (axios.post(`${this.state.urlG}/pet/file/${idPatient}`,idNFile))
     
     }
   

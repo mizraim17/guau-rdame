@@ -21,11 +21,10 @@ class Login  extends  Component {
   getLogin= (e) => {
     e.preventDefault()
     let {form} = this.state;
-    console.log('form--getlogin',form)
-
+    
     axios.post(`${this.state.urlG}/user/login`,form)
       .then((response)=>{
-        console.log('res66666666666' ,response.data._id)
+        
         if (response.data.role==='user'){
           localStorage.setItem('LSidUser',response.data._id)
           this.props.history.push('/profile')
@@ -34,18 +33,18 @@ class Login  extends  Component {
       })
     .catch((err)=>{
       window.Materialize.toast('usuario o contraseña incorrecta', 1500)
-      console.log('error de login',err)
+      
     })
   }
   
   getLoginVet= (e) => {
     e.preventDefault()
     let {form} = this.state;
-    console.log('form--getlogin',form)
+    
   
     axios.post(`${this.state.urlG}/user/login`,form)
       .then((response)=>{
-        console.log('res66666666666' ,response.data._id)
+        
         if (response.data.role==='vet') {
           localStorage.setItem('LSidUserVet', response.data._id)
           this.props.history.push('/profileVet')
@@ -53,7 +52,7 @@ class Login  extends  Component {
       })
       .catch((err)=>{
         window.Materialize.toast('usuario o contraseña incorrecta', 1500)
-        console.log('error de login',err)
+        
       })
   }
   
