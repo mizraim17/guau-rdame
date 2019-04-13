@@ -37,6 +37,7 @@ class RegisterUser extends Component {
    e.preventDefault();
    let {form} = this.state;
     form['role']='user';
+   
     axios.post(`${this.state.urlG}/user`,form)
       
       .then((res)=>{

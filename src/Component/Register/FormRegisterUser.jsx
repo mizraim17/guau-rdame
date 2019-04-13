@@ -8,8 +8,8 @@ const FormRegisterUser = (props) => {
       <Row>
         <Col s={12} m={8} offset="m2" >
         <form onSubmit={props.requestRegister}>
-          <Input s={4} label="Nombre" name="name" onChange={props.onChange} />
-          <Input s={4} label="Paterno" name="apaterno" onChange={props.onChange} />
+          <Input s={4} required label="Nombre" name="name" onChange={props.onChange} />
+          <Input s={4} required label="Paterno" name="apaterno" onChange={props.onChange} />
           <Input s={4} label="Materno" name="amaterno" onChange={props.onChange} />
           
           <Input s={4} placeholder="gua@gmail.com" onChange={props.onChange}  label="email" name="email"/>

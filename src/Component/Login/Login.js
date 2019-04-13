@@ -15,7 +15,7 @@ class Login  extends  Component {
     let {form} =this.state;
      let name =e.target.name;
      form[name]=e.target.value
-    console.log('form',form)
+   
   }
   
   getLogin= (e) => {

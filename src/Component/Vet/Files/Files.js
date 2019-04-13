@@ -1,168 +1,109 @@
 import React, {Component} from 'react'
 import axios from 'axios'
-import {Button, Card, CardTitle, Col, Icon, Row} from "react-materialize";
+import {Button, Card, CardTitle, Col, Icon, Input, Row} from "react-materialize";
 import {Link} from "react-router-dom";
 import IpDev from "../../Ip";
 
 class Files extends Component{
   state={
+    form:{},
+    formData:new FormData(),
     urlG:IpDev.url,
-    idpet:"",
-    infofile:{}
+    idFile:""
   }
-  getFile = () => {
-    axios.get()
+  onChange = (e) => {
+    
+    let {form} =this.state;    
+    let field=e.target.name;
+    form[field]= e.target.value; 
+    console.log('form',form)
+    this.setState({  form});
   }
   
+  saveMaskot= () => {
+   let {idFile}=this.state;
+    let idPatient =localStorage.getItem('idPatient')
+    let idNFile={}
+    idNFile['file']= idFile
+    console.log('idPatient================',idPatient)
+    console.log('idFile================',idNFile)
+    
+    return (axios.put(`${this.state.urlG}/pet/file/${idPatient}`,idNFile))
+    
+    }
+  
+  onSubmit = (e) => {
+    e.preventDefault();
+    let {form} = this.state
+    axios.post(`${this.state.urlG}/file`,form)
+      .then((response)=>{
+        console.log('ggggggggggggggggggg',response.data._id)
+        this.setState({idFile:response.data._id})
+          this.saveMaskot()
+            .then((response)=>{
+              console.log(response.data)
+            })
+            .catch((error)=>{
+              console.log('error',error)
+            })
+      })
+      .catch((error)=>{
+        console.log('error',error)
+      })
+  }
+  
+
+  
+ 
+  
+ 
   render() {
-    let {idPet,infoFile} = this.state
+    
     return(
-      <>
-        {
-          idPet?
-            <Row>
-              <Card
-                header={
-                  <CardTitle image='' className="z-depth-2 orange  accent-12 white-text left-align ">
-                    {infoFile.fecha}
-                  </CardTitle>
-        
-                }
-              >
-                <Card >
-                  <h5>Antecedentes</h5>
-                  <p className="txt-justify"> {infoFile.antecedentes} </p>
-                </Card>
-                <Card>
-                  <h5>Anamnesis</h5>
-                  <p className="txt-justify"> {infoFile.anamnesis} </p>
-                </Card>
-      
-                <Card>
-                  <Row>
-                    <Col m={2}>
-                      MM:
-                    </Col>
-                    <Col m={2}>
-                      {infoFile.MM}
-                    </Col>
-                    <Col m={2}>
-                      FC:
-                    </Col>
-                    <Col m={2}>
-                      {infoFile.FC}
-                    </Col>
-                    <Col m={2}>
-                      TLLC:
-                    </Col>
-                    <Col m={2}>
-                      {infoFile.TLLC}
-                    </Col>
-                    <Col m={2}>
-                      RD:
-                    </Col>
-                    <Col m={2}>
-                      {infoFile.RD}
-                    </Col>
-                    <Col m={2}>
-                      RT:
-                    </Col>
-                    <Col m={2}>
-                      {infoFile.RT}
-                    </Col>
-                    <Col m={2}>
-                      FR:
-                    </Col>
-                    <Col m={2}>
-                      {infoFile.FR}
-                    </Col>
-                    <Col m={2}>
-                      Mucosas:
-                    </Col>
-                    <Col m={2}>
-                      {infoFile.Mucosas}
-                    </Col>
-                    <Col m={2}>
-                      Temp:
-                    </Col>
-                    <Col m={2}>
-                      {infoFile.Temp}
-                    </Col>
-                    <Col m={2}>
-                      PP:
-                    </Col>
-                    <Col m={2}>
-                      {infoFile.PP}
-                    </Col>
-                    <Col m={2}>
-                      Pulso:
-                    </Col>
-                    <Col m={2}>
-                      {infoFile.Pulso}
-                    </Col>
-                    <Col m={2}>
-                      PA:
-                    </Col>
-                    <Col m={2}>
-                      {infoFile.PA}
-                    </Col>
-                    <Col m={2}>
-                      EM:
-                    </Col>
-                    <Col m={2}>
-                      {infoFile.EM}
-                    </Col>
-                    <Col m={2}>
-                      CC:
-                    </Col>
-                    <Col m={2}>
-                      {infoFile.CC}
-                    </Col>
-                    <Col m={2}>
-                      Linfonodos:
-                    </Col>
-                    <Col m={2}>
-                      {infoFile.Linfonodos}
-                    </Col>
-                  </Row>
-                  <Row>
-                    <h5>Pruebas de laboratorio</h5>
-                    <Col m={2}>
-                      QS:
-                    </Col>
-                    <Col m={2}>
-                      {infoFile.lab_QS}
-                    </Col>
-                    <Col m={2}>
-                      EM:
-                    </Col>
-                    <Col m={2}>
-                      {infoFile.lab_HG}
-                    </Col>
-                    <Col m={2}>
-                      EM:
-                    </Col>
-                    <Col m={2}>
-                      {infoFile.lab_U}
-                    </Col>
-                    <Col m={2}>
-                      {infoFile.lab_Rx}
-                    </Col>
-        
-                  </Row>
-                </Card>
-                <Button waves='light'>Tratamiento<Icon right>hotel</Icon></Button>
-              </Card>
-              <img className="materialboxed center-align"  alt="lose" width="650" src=" http://www.uco.es/organiza/departamentos/anatomia-y-anat-patologica/peques/imagenes1_archivos/image009.jpg"/>
-            </Row>
-          :<>
-            <p>a</p>
-              <Link to='/formFiles'>
-                <Button floating large fabClickOnly className='green' waves='yellow' icon='pets' />
-              </Link>
-          </>
-        }
-      </>
+    <>
+      <Row>
+         
+ 
+          <form onSubmit={this.onSubmit}>
+            <Input s={12} label="Antecedentes" name="history_med"  type='textarea'  onChange={this.onChange }/>
+            <Input s={12} label="Anamnesis" name="anamnesis"  type='textarea'  onChange={this.onChange}/>
+  
+            <Input s={2}  label="MM" name="MM" onChange={this.onChange} />
+            <Input s={2} label="TLLC" name="TLLC" onChange={this.onChange} />
+            <Input s={2} label="FC" name="FC" onChange={this.onChange} />
+            <Input s={2} label="RD" name="RD" onChange={this.onChange}  />
+            <Input s={2} label="RT  " name="RT" onChange={this.onChange}   />
+            <Input s={2}  label="FR" name="MM" onChange={this.onChange} />
+            <Input s={2}  label="Mucosas" name="Mucosas" onChange={this.onChange} />
+            <Input s={2} label="Temperatura" name="Temperature" onChange={this.onChange} />
+            <Input s={2}  label="PP" name="PP" onChange={this.onChange} />
+  
+            <Input s={2} label="Pulso  " name="Pulso" onChange={this.onChange}   />
+            <Input s={2}  label="PA" name="PA" onChange={this.onChange} />
+            <Input s={2}  label="EM" name="EM" onChange={this.onChange} />
+            <Input s={2} label="CC" name="CC" onChange={this.onChange} />
+            <Input s={2}   label="Linfonodos" name="Linfonodos"onChange={this.onChange}  />
+           <Col m={12}>
+             <h4  >Pruebas de Laboratorio</h4>
+           </Col>
+           
+            <Input s={2} label="QS  " name="lab_QS" onChange={this.onChange}   />
+  
+            <Input s={2}  label="HG" name="lab_HG" onChange={this.onChange} />
+            <Input s={2}  label="U" name="lab_U" onChange={this.onChange} />
+            <Input s={2} label="Rx" name="lab_Rx" onChange={this.onChange} />
+            <Input s={2}   label="DxP" name="lab_dxp" onChange={this.onChange}  />
+  
+            <Col m={12}>
+            <Link to={'/profileVet'}>
+              <Button s={12} m={12} className="orange"  waves='light'>Regresar</Button>
+            </Link>
+            <Button s={12} m={12}  waves='light'>GuaUrdar</Button> <br/><br/>
+            </Col>
+          </form>
+     
+      </Row>
+    </>
     );
   }
 }

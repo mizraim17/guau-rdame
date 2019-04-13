@@ -93,13 +93,13 @@ const InfoProfile = (props) => {
                <div className="divider">
                  <hr/>
                </div>
-               <Col m={3}>
+               <Col m={3}>{console.log( 'mmmmmmmmmmmmmm',props.infoVet['imgPath'])}
                   {
                     (Object.keys(props.infoVet).length !== 0)?
                    
                      <Card className="center-align z-depth-2 card-contacts gray-text"   >
-                       <img src={props.infoVet['imgPath']} className="circle align-center" width="50" alt=""/>
-                       <div>
+                          <img src={props.infoVet['imgPath']} className="circle align-center" width="50" alt=""/>
+                        <div>
                          <p className="nameUser ">{`${props.infoVet['name']} ${props.infoVet['apaterno']}`}</p>
                          <p className="nameUser ">   {`${props.infoVet['cellphone']}`} </p>
                          <br/>
@@ -112,7 +112,7 @@ const InfoProfile = (props) => {
           </div>
           :<Row>
               <Col m={6}>
-                <img className=" "   alt="lose" width="200" src="https://res.cloudinary.com/dultkt54v/image/upload/v1555033388/images_guaurdame/no_pet.jpg"/>
+                <img className=" "  className="circle align-center"  alt="lose" width="200" src="https://res.cloudinary.com/dultkt54v/image/upload/v1555033388/images_guaurdame/no_pet.jpg"/>
   
               </Col>
                 <Col m={6}>
@@ -128,8 +128,13 @@ const InfoProfile = (props) => {
         <div className="divider"> </div>
          <p className="titulo px">Información del dueño</p>
         <Row >
-          <Col m={12}  >
-            <img src={props.owner['imgPath']} width="300" alt=""/>
+          <Col m={12}  >{console.log('imgPath',props.owner.imgPath)}
+            {
+              props.owner['imgPath']
+                ? <img src={props.owner['imgPath']} className="circle align-center" width="350" alt=""/>
+                : <img src="https://res.cloudinary.com/dultkt54v/image/upload/v1555125149/images_guaurdame/cosme.gif" className="circle align-center" width="250" alt=""/>
+    
+            }
           </Col>
           <Col m={6}  >
             <h5 className="txt-bold" >Propietario: <span  className="txt-normal" >{`${props.owner['name']} ${props.owner['apaterno']} ${props.owner['amaterno']}`}</span> </h5>

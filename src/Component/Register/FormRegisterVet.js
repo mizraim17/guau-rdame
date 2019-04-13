@@ -16,31 +16,10 @@ const  FormRegisterVet = (props) => {
             <Input s={4} label="Materno" name="amaterno" onChange={props.onChange} />
             <Input s={4} required type="email"  placeholder="gua@gmail.com" onChange={props.onChange}  label="Email" name="email"/>
             <Input s={4} required  minLength="6"  placeholder="****" onChange={props.onChange} type="password" label="Password" name="password"/>
-         
-              <Input s={3} required label="Teléfono" onChange={props.onChange} name="cellphone" />
-              <Input s={3} label="C.P.  " onChange={props.onChange} name="zipcode"   />
-            <Col s={3}>
-              {
-                (Object.keys(props.comboCp).length === 0)
-                  ? <Input  value="Estado" />
-                  :<Input   disabled
-                            value={ props.form['state']}
-                            name="state"
-                            onChange={(e)=>this.onChange(e)}>
-                  </Input>
-              }
-            </Col>
-            <Col s={3}>
-              {
-                (Object.keys(props.comboCp).length === 0)
-                  ? <Input  value="Ciudad" />
-                  :<Input   disabled
-                            value={ props.form['city']}
-                            name="city"
-                            onChange={(e)=>this.onChange(e)}>
-                  </Input>
-              }
-            </Col>
+            <Input s={3} required label="Teléfono" onChange={props.onChange} name="cellphone" />
+            <Input s={3} label="C.P.  " onChange={props.onChange} name="zipcode"   />
+           <Input  s={3}  label="Estado" name="state"  onChange={props.onChange} />
+           <Input  s={3} label="Ciudad" name="city" onChange={props.onChange} />
             <Input s={3} label="Número  " onChange={props.onChange} name="no_street"   />
             <Input s={3} label="Calle  " onChange={props.onChange} name="street"   />
          
@@ -51,7 +30,7 @@ const  FormRegisterVet = (props) => {
             <Link to={'/'}>
               <Button s={12} m={12} className="orange"  waves='light'>Regresar</Button>
             </Link>
-            <Button s={12} m={12}  waves='light'>GuaUrdar</Button><br/><br/>
+            <Button s={12} m={12}  waves='light'>GuaUrdar</Button> <br/><br/>
           </form>
         </Col>
       </Row>
